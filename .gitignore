@@ -1,0 +1,17 @@
+
+### 测试文件 ###
+test/
+*Test
+
+### target目录 ###
+target/
+
+### 字节码文件 ###
+*.class
+
+*.iml
+
+*.properties
+
+.idea
+
