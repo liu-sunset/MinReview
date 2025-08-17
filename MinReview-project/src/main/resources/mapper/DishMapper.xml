@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.mapper.DishMapper">
+
+    <!-- 菜品分页查询 -->
+    <select id="dishPageMapper" parameterType="peng.zhi.liu.dto.DishPageDTO" resultType="peng.zhi.liu.vo.DishPageVO">
+        SELECT
+            d.id,
+            d.name,
+            d.description,
+            d.price,
+            d.image_url AS imageUrl,
+            d.category_id as categoryId,
+            c.name as categoryName,
+            d.floor_id AS floorId,
+            f.name AS floorName,
+            d.like_count AS likeCount,
+            d.dislike_count AS dislikeCount,
+            d.comment_count AS commentCount,
+            d.status,
+            d.update_time AS updateTime
+        FROM
+            dish d
+        LEFT JOIN category c ON d.category_id = c.id
+        LEFT JOIN floor f ON d.floor_id = f.id
+        <where>
+            <if test="keyword != null and keyword != ''">
+                AND d.name LIKE CONCAT('%', #{keyword}, '%')
+            </if>
+            <if test="floorId != null">
+                AND d.floor_id = #{floorId}
+            </if>
+            <if test="categoryId != null">
+                AND d.category_id = #{categoryId}
+            </if>
+        </where>
+        ORDER BY d.update_time DESC
+    </select>
+
+    <!-- 添加菜品 -->
+    <insert id="addDishMapper" parameterType="peng.zhi.liu.entity.Dish">
+        insert into dish (
+            name,
+            description,
+            price,
+            image_url,
+            category_id,
+            floor_id,
+            status,
+            like_count,
+            dislike_count,
+            comment_count,
+            create_time,
+            update_time
+        ) values (
+            #{name},
+            #{description},
+            #{price},
+            #{imageUrl},
+            #{categoryId},
+            #{floorId},
+            #{status},
+            #{likeCount},
+            #{dislikeCount},
+            #{commentCount},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <!-- 根据id查询菜品 -->
+    <select id="getDishByIdMapper" parameterType="java.lang.Long" resultType="peng.zhi.liu.entity.Dish">
+        select
+            id,
+            name,
+            description,
+            price,
+            image_url as imageUrl,
+            category_id as categoryId,
+            floor_id as floorId,
+            status,
+            like_count as likeCount,
+            dislike_count as dislikeCount,
+            comment_count as commentCount,
+            create_time as createTime,
+            update_time as updateTime
+        from dish
+        where id = #{id}
+    </select>
+
+    <!-- 更新菜品 -->
+    <update id="updateDishMapper" parameterType="peng.zhi.liu.entity.Dish">
+        update dish
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="description != null and description != ''">description = #{description},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="imageUrl != null and imageUrl != ''">image_url = #{imageUrl},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+            <if test="floorId != null">floor_id = #{floorId},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="likeCount != null">like_count = #{likeCount},</if>
+            <if test="dislikeCount != null">dislike_count = #{dislikeCount},</if>
+            <if test="commentCount != null">comment_count = #{commentCount},</if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{id}
+    </update>
+
+    <!-- 删除菜品 -->
+    <delete id="deleteDishMapper" parameterType="java.lang.Long">
+        delete from dish where id = #{id}
+    </delete>
+
+</mapper>

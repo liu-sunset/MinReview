@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.mapper.CanteenMapper">
+    <select id="canteenPageMapper" resultType="peng.zhi.liu.vo.CanteenPageVO">
+        select c.id, c.name, c.campus_id as campusId, ca.name as campusName,
+               c.address, c.open_time as openTime, c.close_time as closeTime,
+               c.status, c.floor_count as floorCount
+        from canteen c
+        left join campus ca on c.campus_id = ca.id
+        <where>
+            <if test="keyWord != null and keyWord != ''">
+                and c.name like concat('%', #{keyWord}, '%')
+            </if>
+            <if test="campusId != null">
+                and c.campus_id = #{campusId}
+            </if>
+        </where>
+        order by c.update_time desc
+    </select>
+    
+    <insert id="addCanteenMapper" parameterType="peng.zhi.liu.entity.canteen">
+        insert into canteen (name, campus_id, address, description, create_time, update_time)
+        values (#{name}, #{campusId}, #{address}, #{description}, #{createTime}, #{updateTime})
+    </insert>
+    
+    <update id="modifyCanteenMapper" parameterType="peng.zhi.liu.entity.canteen">
+        update canteen
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="campusId != null">
+                campus_id = #{campusId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{id}
+    </update>
+    
+    <delete id="deleteCanteenMapper" parameterType="java.lang.Long">
+        delete from canteen where id = #{id}
+    </delete>
+</mapper>

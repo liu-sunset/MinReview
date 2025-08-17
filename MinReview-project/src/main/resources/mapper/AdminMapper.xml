@@ -14,4 +14,33 @@
             <if test="status != null">and status = #{status}</if>
         </where>
     </select>
+
+    <insert id="addAdmin" parameterType="peng.zhi.liu.entity.Admin">
+        insert into admin (username, password, name, status, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{status}, now(), now())
+    </insert>
+
+    <update id="updateAdmin" parameterType="peng.zhi.liu.entity.Admin">
+        update admin
+        <set>
+            <if test="username !=null">, username = #{username}</if>
+            <if test="password !=null">, password = #{password}</if>
+            <if test="name !=null">, name = #{name}</if>
+            <if test="status !=null">, status = #{status}</if>
+            <if test="updateTime !=null">, update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAdmin" parameterType="java.lang.Long">
+        delete from admin where id = #{adminId}
+    </delete>
+
+    <select id="adminPageMapper" parameterType="peng.zhi.liu.dto.AdminPageDTO" resultType="peng.zhi.liu.vo.AdminPageVO">
+        select * from admin
+        <where>
+            <if test="name != null and name != ''">and name like concat('%', #{name}, '%')</if>
+        </where>
+        order by update_time desc
+    </select>
 </mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.mapper.UserMapper">
+    <update id="modifyUserMapper">
+        update user
+        <set>
+            <if test="openId != null">,open_id = #{openId}</if>
+            <if test="name != null">,name = #{name}</if>
+            <if test="avatarUrl != null">,avatar_url = #{avatarUrl}</if>
+            <if test="gender != null">,gender = #{gender}</if>
+            <if test="phone != null">,phone = #{phone}</if>
+            <if test="status != null">,status = #{status}</if>
+            <if test="createTime != null">,create_time = #{createTime}</if>
+            <if test="updateTime != null">,update_time = #{updateTime}</if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="deleteUserMapper">
+        delete from user where id = #{userId}
+    </delete>
+
+    <select id="userPageMapper" resultType="peng.zhi.liu.vo.UserPageVO">
+        select * from user 
+        <where>
+            <if test="keyWord!=null">name like concat('%',#{keyWord},'%')</if>
+        </where>
+        order by update_time desc
+    </select>
+</mapper>

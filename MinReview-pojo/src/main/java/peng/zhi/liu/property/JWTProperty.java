@@ -14,4 +14,5 @@ import org.springframework.stereotype.Component;
 public class JWTProperty {
     private String secretKey;
     private long ttlTime;
+
 }

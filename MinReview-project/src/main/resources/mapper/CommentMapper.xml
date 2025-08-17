@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.mapper.CommentMapper">
+
+    <!-- 评论分页查询 -->
+    <select id="commentPageMapper" parameterType="peng.zhi.liu.dto.CommentPageDTO" resultType="peng.zhi.liu.vo.CommentPageVO">
+        select
+            id,
+            user_id as userId,
+            dish_id as dishId,
+            content,
+            reply_to as replyTo,
+            status,
+            like_count as likeCount,
+            update_time as updateTime
+        from user_comment
+        <where>
+            <if test="dishId != null">
+                and dish_id = #{dishId}
+            </if>
+        </where>
+        order by update_time desc
+    </select>
+
+    <!-- 删除评论 -->
+    <delete id="deleteCommentMapper" parameterType="java.lang.Long">
+        delete from user_comment where id = #{id}
+    </delete>
+
+</mapper>

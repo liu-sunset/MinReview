@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.mapper.FloorMapper">
+    <insert id="addFloorMapper" parameterType="peng.zhi.liu.entity.Floor">
+        insert into floor (name, canteen_id, floor_number, description,status, create_time, update_time)
+        values (#{name}, #{canteenId}, #{floorNumber}, #{description},#{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="floorPageMapper" resultType="peng.zhi.liu.vo.FloorPageVO">
+        select f.id, f.name, f.canteen_id as canteenId, c.name as canteenName,
+               f.floor_number as floorNumber, f.description,
+               (select count(*) from dish where floor_id = f.id) as dishCount
+        from floor f
+        left join canteen c on f.canteen_id = c.id
+        <where>
+            <if test="keyWord != null and keyWord != ''">
+                and f.name like concat('%', #{keyWord}, '%')
+            </if>
+            <if test="canteenId != null">
+                and f.canteen_id = #{canteenId}
+            </if>
+        </where>
+        order by f.update_time desc
+    </select>
+
+    <delete id="deleteFloorMapper" parameterType="java.lang.Long">
+        delete from floor where id = #{floorId}
+    </delete>
+</mapper>
