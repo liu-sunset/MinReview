@@ -18,7 +18,7 @@ import peng.zhi.liu.vo.FloorPageVO;
 
 //楼层管理Controller
 @Slf4j
-@RestController
+@RestController("adminFloorController")
 @RequestMapping("/admin/floor")
 public class FloorController {
     @Autowired
@@ -32,7 +32,6 @@ public class FloorController {
         return Result.success();
     }
 
-    //todo:test
     @GetMapping("/list")
     public Result floorPageController(FloorPageDTO floorPageDTO) {
         log.info("楼层分页查询参数: {}", floorPageDTO);

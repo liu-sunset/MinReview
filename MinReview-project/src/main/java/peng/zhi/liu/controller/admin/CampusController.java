@@ -11,12 +11,11 @@ import peng.zhi.liu.service.CampusService;
 import peng.zhi.liu.vo.CampusPageVO;
 
 @Slf4j
-@RestController
+@RestController("adminCampusController")
 @RequestMapping("/admin/campus")
 public class CampusController {
     @Autowired
     private CampusService campusService;
-    // todo:测试
     @GetMapping("/list")
     public Result campusPageController(CampusPageDTO compusPageDTO){
         log.info("校区分页查询参数:{}",compusPageDTO);
@@ -24,7 +23,6 @@ public class CampusController {
         return Result.success(campusPageVOPageResult);
     }
 
-    // todo:test
     @PostMapping
     public Result addCampusController(@RequestBody AddCampusDTO addCampusDTO){
         log.info("添加校区:{}",addCampusDTO);
@@ -32,7 +30,6 @@ public class CampusController {
         return Result.success();
     }
 
-    //todo:test
     @PutMapping("/{campusId}")
     public Result modifyCampusController(@PathVariable Long campusId,@RequestBody AddCampusDTO addCampusDTO){
         log.info("修改ID是{}的校区信息为{}",campusId,addCampusDTO);
@@ -40,15 +37,16 @@ public class CampusController {
         return Result.success();
     }
 
-    //todo:test
+
     @DeleteMapping("/{campusId}")
-    public void deleteCampusController(@PathVariable Long campusId){
+    public Result deleteCampusController(@PathVariable Long campusId){
         log.info("删除ID是{}的校区",campusId);
         campusService.deleteCampusService(campusId);
+        return Result.success();
     }
 
-    //todo:test
-    @PostMapping("/status/{campusId}")
+
+    @PutMapping("/status/{campusId}")
     public Result updateCampusStatusController(@PathVariable Long campusId,@RequestParam Integer status){
         log.info("修改ID是{}的校区状态为{}",campusId,status);
         campusService.updateCampusStatusService(campusId,status);

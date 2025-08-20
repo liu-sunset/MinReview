@@ -26,7 +26,9 @@ mybatis:
 
 # 配置日志级别
 logging:
-  org.springframework.jdbc.support.JdbcTransactionManager: debug
+  level:
+    dev.langchain4j: debug
+    org.springframework.jdbc.support.JdbcTransactionManager: debug
 
 min:
   review:
@@ -37,6 +39,15 @@ min:
       bucket-name: liu-sunset-sky-take-out
       endpoint: https://oss-cn-beijing.aliyuncs.com
       region: cn-beijing
+
+langchain4j:
+  open-ai:
+    streaming-chat-model:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode/v1
+      model-name: deepseek-v3
+      api-key: ${API-KEY}
+      log-requests: true
+      log-responses: true
 
 
 

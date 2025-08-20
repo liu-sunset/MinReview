@@ -5,19 +5,42 @@
     <!-- 评论分页查询 -->
     <select id="commentPageMapper" parameterType="peng.zhi.liu.dto.CommentPageDTO" resultType="peng.zhi.liu.vo.CommentPageVO">
         select
-            id,
-            user_id as userId,
-            dish_id as dishId,
+            uc.id,
+            uc.user_id as userId,
+            uc.dish_id as dishId,
             content,
             reply_to as replyTo,
-            status,
-            like_count as likeCount,
-            update_time as updateTime
-        from user_comment
+            uc.status,
+            uc.like_count as likeCount,
+            user.name,
+            user.avatar_url,
+            uc.update_time as updateTime
+        from user_comment uc left join user on uc.user_id = user.id
         <where>
             <if test="dishId != null">
                 and dish_id = #{dishId}
             </if>
+        </where>
+        order by uc.update_time desc
+    </select>
+    <select id="userCommentPageMapper" resultType="peng.zhi.liu.vo.CommentPageVO">
+        select
+        uc.id,
+        uc.user_id as userId,
+        uc.dish_id as dishId,
+        content,
+        reply_to as replyTo,
+        uc.status,
+        uc.like_count as likeCount,
+        user.name,
+        user.avatar_url,
+        uc.update_time as updateTime
+        from user_comment uc left join user on uc.user_id = user.id
+        <where>
+            <if test="dishId != null">
+                and dish_id = #{dishId}
+            </if>
+            and uc.status = 1
         </where>
         order by update_time desc
     </select>

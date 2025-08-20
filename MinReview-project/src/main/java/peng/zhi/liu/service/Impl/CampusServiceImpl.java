@@ -15,6 +15,7 @@ import peng.zhi.liu.service.CampusService;
 import peng.zhi.liu.vo.CampusPageVO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CampusServiceImpl implements CampusService {
@@ -48,6 +49,11 @@ public class CampusServiceImpl implements CampusService {
     @Override
     public void deleteCampusService(Long id) {
         campusMapper.deleteCampusMapper(id);
+    }
+
+    @Override
+    public List<CampusPageVO> getCampusListService() {
+        return campusMapper.getCampusListMapper();
     }
 
     @Override

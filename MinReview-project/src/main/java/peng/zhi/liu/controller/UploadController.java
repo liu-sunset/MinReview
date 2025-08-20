@@ -1,4 +1,4 @@
-package peng.zhi.liu.controller.admin;
+package peng.zhi.liu.controller;
 
 import peng.zhi.liu.constant.MessageConstant;
 import lombok.extern.slf4j.Slf4j;

@@ -1,5 +1,6 @@
 package peng.zhi.liu.service.Impl;
 
+import com.aliyun.oss.model.CnameConfiguration;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
@@ -12,8 +13,10 @@ import peng.zhi.liu.mapper.CanteenMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.CanteenService;
 import peng.zhi.liu.vo.CanteenPageVO;
+import peng.zhi.liu.vo.CanteenVO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class CanteenServiceImpl implements CanteenService {
@@ -48,5 +51,20 @@ public class CanteenServiceImpl implements CanteenService {
     @Override
     public void deleteCanteenService(Long id) {
         canteenMapper.deleteCanteenMapper(id);
+    }
+    
+    //根据校区ID获取食堂列表
+    @Override
+    public List<CanteenVO> getCanteenListByCampusIdService(Long campusId) {
+        return canteenMapper.getCanteenListByCampusIdMapper(campusId);
+    }
+
+    @Override
+    public void updateCanteenStatusService(Long id, Integer status) {
+        canteen canteen = new canteen();
+        canteen.setStatus(status);
+        canteen.setId(id);
+        canteen.setUpdateTime(LocalDateTime.now());
+        canteenMapper.modifyCanteenMapper(canteen);
     }
 }

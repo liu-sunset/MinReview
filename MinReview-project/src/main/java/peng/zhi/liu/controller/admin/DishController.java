@@ -13,29 +13,26 @@ import peng.zhi.liu.vo.DishPageVO;
 
 //菜品管理Controller
 @Slf4j
-@RestController
+@RestController("adminDishController")
 @RequestMapping("/admin/dish")
 public class DishController {
     @Autowired
     private DishService dishService;
 
-    //todo:test
     @GetMapping("/list")
     public Result dishPageController(DishPageDTO dishPageDTO) {
         log.info("菜品分页查询参数: {}", dishPageDTO);
         PageResult<DishPageVO> pageResult = dishService.dishPageService(dishPageDTO);
         return Result.success(pageResult);
     }
-    
-    //todo:test
+
     @PostMapping
     public Result addDishController(@RequestBody AddDishDTO addDishDTO) {
         log.info("添加菜品参数: {}", addDishDTO);
         dishService.addDishService(addDishDTO);
         return Result.success();
     }
-    
-    //todo:test
+
     @PutMapping("/{dishId}")
     public Result updateDishController(@PathVariable Long dishId, @RequestBody UpdateDishDTO updateDishDTO) {
         log.info("更新菜品参数: dishId={}, updateDishDTO={}", dishId, updateDishDTO);
@@ -46,7 +43,6 @@ public class DishController {
         return Result.success();
     }
 
-    //todo:test
     @DeleteMapping("/{dishId}")
     public Result deleteDishController(@PathVariable Long dishId) {
         log.info("删除菜品参数: dishId={}", dishId);
@@ -55,8 +51,7 @@ public class DishController {
         return Result.success();
     }
 
-    //todo:test
-    @PostMapping("/status/{dishId}")
+    @PutMapping("/status/{dishId}")
     public Result updateDishStatusController(@PathVariable Long dishId, @RequestParam Integer status){
         log.info("修改菜品ID是{}的状态为{}",dishId,status);
         dishService.updateDishStatusService(dishId,status);

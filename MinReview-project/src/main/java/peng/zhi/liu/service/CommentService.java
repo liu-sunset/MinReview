@@ -10,4 +10,6 @@ public interface CommentService {
     public PageResult<CommentPageVO> commentPageService(CommentPageDTO commentPageDTO);
     //删除评论
     public void deleteCommentService(Long id);
+    //用户评论分页查询
+    public PageResult<CommentPageVO> userCommentPageService(CommentPageDTO commentPageDTO);
 }

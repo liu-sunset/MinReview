@@ -17,7 +17,7 @@ public interface AdminMapper {
     // 添加管理员
     public void addAdmin(Admin admin);
     // 更新管理员名称
-    public void updateAdmin(Admin admin);
+    public void updateAdminMapper(Admin admin);
     // 删除管理员
     public void deleteAdmin(Long adminId);
 }

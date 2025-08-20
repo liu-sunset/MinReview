@@ -11,13 +11,12 @@ import peng.zhi.liu.vo.CommentPageVO;
 
 //评论管理Controller
 @Slf4j
-@RestController
+@RestController("adminCommentController")
 @RequestMapping("/admin/comment")
 public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    //todo:test
     @GetMapping("/list")
     public Result commentPageController(CommentPageDTO commentPageDTO) {
         log.info("评论分页查询参数: {}", commentPageDTO);
@@ -25,7 +24,6 @@ public class CommentController {
         return Result.success(pageResult);
     }
 
-    //todo:test
     @DeleteMapping("/{commentId}")
     public Result deleteCommentController(@PathVariable Long commentId) {
         log.info("删除评论ID: {}", commentId);

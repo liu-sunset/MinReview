@@ -9,7 +9,7 @@ import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.UserService;
 
 @Slf4j
-@RestController
+@RestController("adminUserController")
 @RequestMapping("/admin/user")
 public class UserController {
     @Autowired

@@ -7,6 +7,8 @@ import peng.zhi.liu.entity.Campus;
 import peng.zhi.liu.service.CampusService;
 import peng.zhi.liu.vo.CampusPageVO;
 
+import java.util.List;
+
 @Mapper
 public interface CampusMapper {
     //校区的分页查询
@@ -17,4 +19,7 @@ public interface CampusMapper {
     public void modifyCampusMapper(Campus campus);
     //删除校区
     public void deleteCampusMapper(Long id);
+    
+    //获取校区列表
+    public List<CampusPageVO> getCampusListMapper();
 }

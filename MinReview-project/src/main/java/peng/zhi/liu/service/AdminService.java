@@ -3,6 +3,7 @@ package peng.zhi.liu.service;
 import peng.zhi.liu.dto.AddAdminDTO;
 import peng.zhi.liu.dto.AdminLoginDTO;
 import peng.zhi.liu.dto.AdminPageDTO;
+import peng.zhi.liu.dto.ModifyAdminPasswordDTO;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.vo.AdminLoginVO;
 import peng.zhi.liu.vo.AdminPageVO;
@@ -20,4 +21,6 @@ public interface AdminService {
     public void deleteAdminService(Long adminId);
     // 更新管理员状态
     public void updateAdminStatusService(Long adminId, Integer status);
+    //更新管理员密码
+    public void updateAdminPasswordController(Long adminId, ModifyAdminPasswordDTO modifyAdminPasswordDTO);
 }

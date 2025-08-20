@@ -9,6 +9,7 @@ import peng.zhi.liu.constant.AdminConstant;
 import peng.zhi.liu.dto.AdminLoginDTO;
 import peng.zhi.liu.dto.AdminPageDTO;
 import peng.zhi.liu.dto.AddAdminDTO;
+import peng.zhi.liu.dto.ModifyAdminPasswordDTO;
 import peng.zhi.liu.entity.Admin;
 import peng.zhi.liu.exception.AdminException;
 import peng.zhi.liu.mapper.AdminMapper;
@@ -126,7 +127,7 @@ public class AdminServiceImpl implements AdminService {
         admin.setUpdateTime(LocalDateTime.now());
 
         // 3. 调用mapper更新数据
-        adminMapper.updateAdmin(admin);
+        adminMapper.updateAdminMapper(admin);
     }
 
     // 删除管理员
@@ -163,6 +164,23 @@ public class AdminServiceImpl implements AdminService {
         admin.setUpdateTime(LocalDateTime.now());
 
         // 3. 调用mapper更新数据
-        adminMapper.updateAdmin(admin);
+        adminMapper.updateAdminMapper(admin);
+    }
+
+    @Override
+    public void updateAdminPasswordController(Long adminId, ModifyAdminPasswordDTO modifyAdminPasswordDTO) {
+        Admin admin = new Admin();
+        admin.setId(adminId);
+        String oldPassword = DigestUtils.md5DigestAsHex(modifyAdminPasswordDTO.getOldPassword().getBytes());
+        admin.setPassword(oldPassword);
+        List<Admin> adminList = adminMapper.selectAdmin(admin);
+        if(adminList==null||adminList.isEmpty()){
+            throw new AdminException(AdminConstant.ADMIN_NOT_EXSIT);
+        }
+
+        String newPassword = DigestUtils.md5DigestAsHex(modifyAdminPasswordDTO.getNewPassword().getBytes());
+        admin.setPassword(newPassword);
+        admin.setUpdateTime(LocalDateTime.now());
+        adminMapper.updateAdminMapper(admin);
     }
 }

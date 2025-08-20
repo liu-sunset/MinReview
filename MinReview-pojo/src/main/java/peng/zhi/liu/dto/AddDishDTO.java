@@ -12,4 +12,5 @@ public class AddDishDTO {
     private String imageUrl;
     private Long categoryId;
     private Long floorId;
+    private Long canteenId;
 }

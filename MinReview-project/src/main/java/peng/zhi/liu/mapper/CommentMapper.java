@@ -12,4 +12,6 @@ public interface CommentMapper {
     Page<CommentPageVO> commentPageMapper(CommentPageDTO commentPageDTO);
     //删除评论
     void deleteCommentMapper(Long id);
+    //用户评论分页查询
+    Page<CommentPageVO> userCommentPageMapper(CommentPageDTO commentPageDTO);
 }

@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import peng.zhi.liu.dto.CanteenPageDTO;
 import peng.zhi.liu.entity.canteen;
 import peng.zhi.liu.vo.CanteenPageVO;
+import peng.zhi.liu.vo.CanteenVO;
+import java.util.List;
 
 @Mapper
 public interface CanteenMapper {
@@ -16,4 +18,6 @@ public interface CanteenMapper {
     void modifyCanteenMapper(canteen canteen);
     //删除餐厅
     void deleteCanteenMapper(Long id);
+    //根据校区ID获取食堂列表
+    List<CanteenVO> getCanteenListByCampusIdMapper(Long campusId);
 }

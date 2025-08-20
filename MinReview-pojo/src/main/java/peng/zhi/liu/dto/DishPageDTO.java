@@ -10,4 +10,5 @@ public class DishPageDTO {
     private String keyword;
     private Long floorId;
     private Long categoryId;
+    private Long canteenId;
 }

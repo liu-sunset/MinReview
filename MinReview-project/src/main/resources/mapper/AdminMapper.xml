@@ -20,7 +20,7 @@
         values (#{username}, #{password}, #{name}, #{status}, now(), now())
     </insert>
 
-    <update id="updateAdmin" parameterType="peng.zhi.liu.entity.Admin">
+    <update id="updateAdminMapper" parameterType="peng.zhi.liu.entity.Admin">
         update admin
         <set>
             <if test="username !=null">, username = #{username}</if>

@@ -12,6 +12,7 @@ import peng.zhi.liu.entity.Dish;
 import peng.zhi.liu.mapper.DishMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.DishService;
+import peng.zhi.liu.vo.DishDetailVO;
 import peng.zhi.liu.vo.DishPageVO;
 import java.time.LocalDateTime;
 
@@ -61,6 +62,13 @@ public class DishServiceImpl implements DishService {
         Dish dish = new Dish();
         dish.setId(id);
         dish.setStatus(status);
+        dish.setUpdateTime(LocalDateTime.now());
         dishMapper.updateDishMapper(dish);
+    }
+
+    //获取菜品详情
+    @Override
+    public DishDetailVO getDishDetailService(Long dishId) {
+        return dishMapper.getDishDetailMapper(dishId);
     }
 }

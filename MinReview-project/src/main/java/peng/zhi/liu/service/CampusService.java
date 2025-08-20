@@ -4,6 +4,7 @@ import peng.zhi.liu.dto.AddCampusDTO;
 import peng.zhi.liu.dto.CampusPageDTO;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.vo.CampusPageVO;
+import java.util.List;
 
 public interface CampusService {
     //校区分页查询
@@ -16,4 +17,7 @@ public interface CampusService {
     public void deleteCampusService(Long id);
     //更新校区状态
     public void updateCampusStatusService(Long id,Integer status);
+    
+    //获取校区列表
+    public List<CampusPageVO> getCampusListService();
 }

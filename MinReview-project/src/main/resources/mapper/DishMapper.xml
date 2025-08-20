@@ -18,6 +18,7 @@
             d.dislike_count AS dislikeCount,
             d.comment_count AS commentCount,
             d.status,
+            d.canteen_id as canteenId,
             d.update_time AS updateTime
         FROM
             dish d
@@ -33,6 +34,9 @@
             <if test="categoryId != null">
                 AND d.category_id = #{categoryId}
             </if>
+            <if test="canteenId != null">
+                AND d.canteen_id = #{canteenId}
+            </if>
         </where>
         ORDER BY d.update_time DESC
     </select>
@@ -46,12 +50,12 @@
             image_url,
             category_id,
             floor_id,
-            status,
             like_count,
             dislike_count,
             comment_count,
             create_time,
-            update_time
+            update_time,
+            canteen_id
         ) values (
             #{name},
             #{description},
@@ -59,12 +63,12 @@
             #{imageUrl},
             #{categoryId},
             #{floorId},
-            #{status},
             #{likeCount},
             #{dislikeCount},
             #{commentCount},
             #{createTime},
-            #{updateTime}
+            #{updateTime},
+            #{canteenId}
         )
     </insert>
 
@@ -111,5 +115,31 @@
     <delete id="deleteDishMapper" parameterType="java.lang.Long">
         delete from dish where id = #{id}
     </delete>
+
+    <!-- 获取菜品详情 -->
+    <select id="getDishDetailMapper" parameterType="java.lang.Long" resultType="peng.zhi.liu.vo.DishDetailVO">
+        select
+            d.id,
+            d.name,
+            d.description,
+            d.price,
+            d.image_url as imageUrl,
+            c.name as category,
+            d.floor_id as floorId,
+            f.name as floorName,
+            ca.name as canteenName,
+            cam.name as campusName,
+            d.like_count as likeCount,
+            d.dislike_count as dislikeCount,
+            d.comment_count as commentCount,
+            d.status,
+            d.update_time as updateTime
+        from dish d
+        left join category c on d.category_id = c.id
+        left join floor f on d.floor_id = f.id
+        left join canteen ca on f.canteen_id = ca.id
+        left join campus cam on ca.campus_id = cam.id
+        where d.id = #{dishId}
+    </select>
 
 </mapper>

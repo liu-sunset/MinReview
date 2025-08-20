@@ -4,6 +4,7 @@ import peng.zhi.liu.dto.AddDishDTO;
 import peng.zhi.liu.dto.DishPageDTO;
 import peng.zhi.liu.dto.UpdateDishDTO;
 import peng.zhi.liu.result.PageResult;
+import peng.zhi.liu.vo.DishDetailVO;
 import peng.zhi.liu.vo.DishPageVO;
 
 public interface DishService {
@@ -17,4 +18,6 @@ public interface DishService {
     public void deleteDishService(Long dishId);
     //更新菜品状态
     public void updateDishStatusService(Long id,Integer status);
+    //获取菜品详情
+    public DishDetailVO getDishDetailService(Long dishId);
 }

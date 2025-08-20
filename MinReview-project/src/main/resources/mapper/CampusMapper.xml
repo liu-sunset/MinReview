@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="peng.zhi.liu.mapper.CampusMapper">
     <insert id="addCampusMapper">
-        insert into campus(name, address, status,description, create_time, update_time)
-                    values(#{name},#{address},#{status},#{description},#{createTime},#{updateTime})
+        insert into campus(name, address,description, create_time, update_time)
+                    values(#{name},#{address},#{description},#{createTime},#{updateTime})
     </insert>
     <update id="modifyCampusMapper">
         update campus
@@ -28,6 +28,13 @@
         <where>
             <if test="keyWord!=null"> name like concat('%',#{keyWord},'%')</if>
         </where>
-        order by update_time desc
-    </select>
+          order by update_time desc
+      </select>
+      <select id="getCampusListMapper" resultType="peng.zhi.liu.vo.CampusPageVO">
+          select c.id, c.name, c.address, c.status, count(ca.id) as canteenCount
+          from campus c
+          left join canteen ca on c.id = ca.campus_id
+          where c.status = 1
+          order by c.update_time desc
+      </select>
 </mapper>

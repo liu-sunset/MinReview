@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import peng.zhi.liu.dto.FloorPageDTO;
 import peng.zhi.liu.entity.Floor;
 import peng.zhi.liu.vo.FloorPageVO;
+import peng.zhi.liu.vo.FloorVO;
+import java.util.List;
 
 //楼层Mapper接口
 @Mapper
@@ -15,4 +17,6 @@ public interface FloorMapper {
     Page<FloorPageVO> floorPageMapper(FloorPageDTO floorPageDTO);
     //删除楼层
     void deleteFloorMapper(Long floorId);
+    //根据食堂ID获取楼层列表
+    List<FloorVO> getFloorListByCanteenIdMapper(Long canteenId);
 }

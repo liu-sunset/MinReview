@@ -13,8 +13,6 @@ public class CanteenPageVO {
     private Long campusId;
     private String campusName;
     private String address;
-    private String openTime;
-    private String closeTime;
     private Integer status;
     private Integer floorCount;
 }

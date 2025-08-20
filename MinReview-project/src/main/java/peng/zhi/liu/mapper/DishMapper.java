@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import peng.zhi.liu.dto.DishPageDTO;
 import peng.zhi.liu.entity.Dish;
+import peng.zhi.liu.vo.DishDetailVO;
 import peng.zhi.liu.vo.DishPageVO;
 
 //菜品Mapper接口
@@ -19,4 +20,6 @@ public interface DishMapper {
     void updateDishMapper(Dish dish);
     //删除菜品
     void deleteDishMapper(Long id);
+    //获取菜品详情
+    DishDetailVO getDishDetailMapper(Long dishId);
 }

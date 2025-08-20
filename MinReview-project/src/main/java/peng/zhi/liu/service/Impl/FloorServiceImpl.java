@@ -12,8 +12,10 @@ import peng.zhi.liu.mapper.FloorMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.FloorService;
 import peng.zhi.liu.vo.FloorPageVO;
+import peng.zhi.liu.vo.FloorVO;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 //楼层服务实现类
 @Service
@@ -43,5 +45,11 @@ public class FloorServiceImpl implements FloorService {
     @Override
     public void deleteFloorService(Long floorId) {
         floorMapper.deleteFloorMapper(floorId);
+    }
+    
+    //根据食堂ID获取楼层列表
+    @Override
+    public List<FloorVO> getFloorListByCanteenIdService(Long canteenId) {
+        return floorMapper.getFloorListByCanteenIdMapper(canteenId);
     }
 }

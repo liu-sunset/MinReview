@@ -5,7 +5,7 @@
 <mapper namespace="peng.zhi.liu.mapper.CanteenMapper">
     <select id="canteenPageMapper" resultType="peng.zhi.liu.vo.CanteenPageVO">
         select c.id, c.name, c.campus_id as campusId, ca.name as campusName,
-               c.address, c.open_time as openTime, c.close_time as closeTime,
+               c.address,
                c.status, c.floor_count as floorCount
         from canteen c
         left join campus ca on c.campus_id = ca.id
@@ -51,4 +51,14 @@
     <delete id="deleteCanteenMapper" parameterType="java.lang.Long">
         delete from canteen where id = #{id}
     </delete>
+    
+    <select id="getCanteenListByCampusIdMapper" resultType="peng.zhi.liu.vo.CanteenVO">
+        select c.id, c.name, c.campus_id as campusId, ca.name as campusName,
+               c.address, c.status, c.floor_count as floorCount
+        from canteen c
+        left join campus ca on c.campus_id = ca.id
+        where c.campus_id = #{campusId}
+        and c.status = 1
+        order by c.update_time desc
+    </select>
 </mapper>

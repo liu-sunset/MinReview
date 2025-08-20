@@ -4,6 +4,8 @@ import peng.zhi.liu.dto.AddFloorDTO;
 import peng.zhi.liu.dto.FloorPageDTO;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.vo.FloorPageVO;
+import peng.zhi.liu.vo.FloorVO;
+import java.util.List;
 
 //楼层服务接口
 public interface FloorService {
@@ -13,4 +15,6 @@ public interface FloorService {
     PageResult<FloorPageVO> floorPageService(FloorPageDTO floorPageDTO);
     //删除楼层
     void deleteFloorService(Long floorId);
+    //根据食堂ID获取楼层列表
+    List<FloorVO> getFloorListByCanteenIdService(Long canteenId);
 }

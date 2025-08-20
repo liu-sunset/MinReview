@@ -21,7 +21,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         log.info("开始注册管理员拦截器");
         interceptorRegistry.addInterceptor(jwtTokenAdminIntercepter)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/employee/login");
+                .excludePathPatterns("/admin/login");
 //
 //        interceptorRegistry.addInterceptor(jwtTokenUserIntercepter)
 //                .addPathPatterns("/user/**")

@@ -29,4 +29,11 @@ public class CommentServiceImpl implements CommentService {
     public void deleteCommentService(Long id) {
         commentMapper.deleteCommentMapper(id);
     }
+
+    @Override
+    public PageResult<CommentPageVO> userCommentPageService(CommentPageDTO commentPageDTO) {
+        PageHelper.startPage(commentPageDTO.getPage(), commentPageDTO.getPageSize());
+        Page<CommentPageVO> page = commentMapper.userCommentPageMapper(commentPageDTO);
+        return new PageResult<>(page.getTotal(), page.getResult());
+    }
 }

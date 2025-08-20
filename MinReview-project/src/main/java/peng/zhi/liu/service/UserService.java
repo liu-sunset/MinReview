@@ -2,6 +2,8 @@ package peng.zhi.liu.service;
 
 import peng.zhi.liu.dto.UserPageDTO;
 import peng.zhi.liu.result.PageResult;
+import peng.zhi.liu.vo.UserInfoVO;
+import peng.zhi.liu.dto.UpdateUserDTO;
 
 import java.util.List;
 
@@ -12,4 +14,8 @@ public interface UserService {
     public void modifyUserStatusService(Long userId,Integer status);
     //删除用户
     public void deleteUserService(Long userId);
+    //根据id获取用户信息
+    public UserInfoVO getUserInfoByIdService(Long id);
+    //更新用户信息
+    public void updateUserInfoService(UpdateUserDTO updateUserDTO);
 }
