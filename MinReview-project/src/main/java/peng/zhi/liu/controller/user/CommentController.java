@@ -2,11 +2,8 @@ package peng.zhi.liu.controller.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import peng.zhi.liu.dto.AddCommentDTO;
 import peng.zhi.liu.dto.CommentPageDTO;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
@@ -21,13 +18,25 @@ public class CommentController {
     
     @Autowired
     private CommentService commentService;
-
-    //todo:test
     @GetMapping("/list")
     public Result getCommentListController(CommentPageDTO commentPageDTO) {
         log.info("获取菜品评论列表参数: {}", commentPageDTO);
         // 调用服务层获取评论列表
         PageResult<CommentPageVO> pageResult = commentService.userCommentPageService(commentPageDTO);
         return Result.success(pageResult);
+    }
+
+    @PostMapping
+    public Result addCommentController(@RequestBody AddCommentDTO addCommentDTO){
+        log.info("用户添加评论，评论信息:{}",addCommentDTO);
+        commentService.addCommentService(addCommentDTO);
+        return Result.success();
+    }
+
+    @DeleteMapping("/{commentId}")
+    public Result deleteCommentController(@PathVariable Long commentId){
+        log.info("用户删除评论，评论ID:{}",commentId);
+        commentService.deleteCommentService(commentId);
+        return Result.success();
     }
 }

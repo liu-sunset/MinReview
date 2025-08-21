@@ -19,7 +19,6 @@ public class DisagreeController {
     @Autowired
     private DisagreeService disagreeService;
 
-    //todo:test
     @PostMapping("/dislike")
     public Result dislikeDish(@RequestBody DisagreeDTO disagreeDTO) {
         log.info("用户点踩菜品,参数: {}", disagreeDTO);
@@ -27,7 +26,6 @@ public class DisagreeController {
         return Result.success();
     }
 
-    //todo:test
     @DeleteMapping("/dislike/{dishId}/{userId}")
     public Result cancelDislikeDish(@PathVariable Long dishId, @PathVariable Long userId) {
         log.info("用户取消点踩菜品,菜品id: {}, 用户id: {}", dishId, userId);

@@ -19,7 +19,6 @@ public class AgreeController {
     @Autowired
     private AgreeService agreeService;
 
-    //todo:test
     @PostMapping("/like")
     public Result likeDish(@RequestBody AgreeDTO agreeDTO) {
         log.info("用户点赞菜品,参数: {}", agreeDTO);
@@ -27,7 +26,6 @@ public class AgreeController {
         return Result.success();
     }
 
-    //todo:test
     @DeleteMapping("/like/{dishId}/{userId}")
     public Result cancelLikeDish(@PathVariable Long dishId, @PathVariable Long userId) {
         log.info("用户取消点赞菜品,菜品id: {}, 用户id: {}", dishId, userId);

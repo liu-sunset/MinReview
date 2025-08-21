@@ -24,7 +24,6 @@ public class FloorController {
     @Autowired
     private FloorService floorService;
 
-    //todo:test
     @PostMapping
     public Result addFloorController(@RequestBody AddFloorDTO addFloorDTO) {
         log.info("添加楼层: {}", addFloorDTO);
@@ -39,7 +38,6 @@ public class FloorController {
         return Result.success(pageResult);
     }
 
-    //todo:test
     @DeleteMapping("/{floorId}")
     public Result deleteFloorController(@PathVariable Long floorId) {
         log.info("删除楼层, id: {}", floorId);

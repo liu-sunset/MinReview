@@ -15,10 +15,13 @@ public class DishDetailVO {
     private String description;
     private BigDecimal price;
     private String imageUrl;
-    private String category;
+    private Long categoryId;
+    private String categoryName;
     private Long floorId;
     private String floorName;
+    private Long canteenId;
     private String canteenName;
+    private Long campusId;
     private String campusName;
     private Integer likeCount;
     private Integer dislikeCount;

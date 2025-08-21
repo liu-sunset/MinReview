@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "sky.aliyunoss")
+@ConfigurationProperties(prefix = "min.review.aliyunoss")
 public class AliOssProperty {
     private String bucketName;
     private String endpoint;

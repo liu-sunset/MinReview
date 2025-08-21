@@ -31,9 +31,8 @@
           order by update_time desc
       </select>
       <select id="getCampusListMapper" resultType="peng.zhi.liu.vo.CampusPageVO">
-          select c.id, c.name, c.address, c.status, count(ca.id) as canteenCount
+          select c.id, c.name, c.address, c.status
           from campus c
-          left join canteen ca on c.id = ca.campus_id
           where c.status = 1
           order by c.update_time desc
       </select>

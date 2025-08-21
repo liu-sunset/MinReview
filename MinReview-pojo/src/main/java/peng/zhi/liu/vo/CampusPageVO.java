@@ -14,5 +14,4 @@ public class CampusPageVO {
     private String name;
     private String address;
     private Integer status;
-    private Integer canteenCount;
 }

@@ -11,4 +11,5 @@ public class DishPageDTO {
     private Long floorId;
     private Long categoryId;
     private Long canteenId;
+    private Long campusId;
 }

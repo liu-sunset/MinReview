@@ -19,7 +19,6 @@ public class FloorController {
     @Autowired
     private FloorService floorService;
 
-    //todo:test
     @GetMapping("/floor/list/{canteenId}")
     public Result getFloorListByCanteenId(@PathVariable Long canteenId) {
         log.info("根据食堂ID获取楼层列表,食堂ID: {}", canteenId);

@@ -18,7 +18,6 @@ import java.util.List;
 public class CanteenController {
     @Autowired
     private CanteenService canteenService;
-    //todo:test
     @GetMapping("/canteen/list/{campusId}")
     public Result getCanteenListByCampusId(@PathVariable Long campusId) {
         log.info("根据校区ID获取食堂列表,校区id: {}", campusId);

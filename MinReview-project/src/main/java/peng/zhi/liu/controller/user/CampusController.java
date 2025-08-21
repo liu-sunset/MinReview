@@ -20,7 +20,6 @@ public class CampusController {
     private CampusService campusService;
 
 
-    //todo:test
     @GetMapping("/campus/list")
     public Result getCampusList() {
         log.info("获取校区列表");

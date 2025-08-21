@@ -19,11 +19,14 @@ public class DishPageVO {
     private String categoryName;
     private Long floorId;
     private String floorName;
+    private Long canteenId;
+    private String canteenName;
+    private Long campusId;
+    private String campusName;
     private Integer likeCount;
     private Integer dislikeCount;
     private Integer commentCount;
     private Integer status;
-    private Long canteenId;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;

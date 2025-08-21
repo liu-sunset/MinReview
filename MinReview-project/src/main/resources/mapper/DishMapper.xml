@@ -19,11 +19,16 @@
             d.comment_count AS commentCount,
             d.status,
             d.canteen_id as canteenId,
-            d.update_time AS updateTime
+            d.update_time AS updateTime,
+            campus.name as campusName,
+            d.campus_id,
+            canteen.name as canteenName
         FROM
             dish d
         LEFT JOIN category c ON d.category_id = c.id
         LEFT JOIN floor f ON d.floor_id = f.id
+        left join campus on d.campus_id = campus.id
+        left join canteen on d.canteen_id = canteen.id
         <where>
             <if test="keyword != null and keyword != ''">
                 AND d.name LIKE CONCAT('%', #{keyword}, '%')
@@ -36,6 +41,9 @@
             </if>
             <if test="canteenId != null">
                 AND d.canteen_id = #{canteenId}
+            </if>
+            <if test="campusId != null">
+                AND d.campus_id = #{campusId}
             </if>
         </where>
         ORDER BY d.update_time DESC
@@ -55,7 +63,8 @@
             comment_count,
             create_time,
             update_time,
-            canteen_id
+            canteen_id,
+            campus_id
         ) values (
             #{name},
             #{description},
@@ -68,7 +77,8 @@
             #{commentCount},
             #{createTime},
             #{updateTime},
-            #{canteenId}
+            #{canteenId},
+            #{campusId}
         )
     </insert>
 
@@ -106,9 +116,17 @@
             <if test="likeCount != null">like_count = #{likeCount},</if>
             <if test="dislikeCount != null">dislike_count = #{dislikeCount},</if>
             <if test="commentCount != null">comment_count = #{commentCount},</if>
+            <if test="canteenId != null">canteen_id = #{canteenId},</if>
+            <if test="campusId != null">campus_id = #{campusId},</if>
             update_time = #{updateTime}
         </set>
         where id = #{id}
+    </update>
+    <update id="updateDishLikeCountMapper">
+        update dish set like_count = #{likeCount} where id = #{id}
+    </update>
+    <update id="updateDishDislikeCountMapper">
+        update dish set dislike_count = #{dislikeCount} where id = #{id}
     </update>
 
     <!-- 删除菜品 -->
@@ -124,10 +142,13 @@
             d.description,
             d.price,
             d.image_url as imageUrl,
-            c.name as category,
+            d.category_id,
+            c.name as categoryName,
             d.floor_id as floorId,
             f.name as floorName,
+            d.canteen_id,
             ca.name as canteenName,
+            d.campus_id,
             cam.name as campusName,
             d.like_count as likeCount,
             d.dislike_count as dislikeCount,

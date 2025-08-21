@@ -14,4 +14,5 @@ public class UpdateDishDTO {
     private Long categoryId;
     private Long floorId;
     private Long canteenId;
+    private Long campusId;
 }

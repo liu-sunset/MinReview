@@ -22,4 +22,8 @@ public interface DishMapper {
     void deleteDishMapper(Long id);
     //获取菜品详情
     DishDetailVO getDishDetailMapper(Long dishId);
+    //增加菜品点赞数
+    public void updateDishLikeCountMapper(Integer likeCount,Long id);
+    //增加菜品点踩数
+    public void updateDishDislikeCountMapper(Integer dislikeCount,Long id);
 }

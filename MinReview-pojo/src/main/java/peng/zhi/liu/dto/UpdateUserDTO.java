@@ -8,4 +8,5 @@ public class UpdateUserDTO {
     private Long id;
     private String nickName;
     private String avatarUrl;
+    private Integer gender;
 }

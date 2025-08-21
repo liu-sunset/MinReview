@@ -13,4 +13,5 @@ public class AddDishDTO {
     private Long categoryId;
     private Long floorId;
     private Long canteenId;
+    private Long campusId;
 }

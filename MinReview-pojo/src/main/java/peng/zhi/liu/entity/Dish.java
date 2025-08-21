@@ -22,6 +22,7 @@ public class Dish {
     private Integer dislikeCount;
     private Integer commentCount;
     private Long canteenId;
+    private Long campusId;
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;

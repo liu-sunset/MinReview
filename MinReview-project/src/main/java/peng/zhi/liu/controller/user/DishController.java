@@ -20,7 +20,6 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
-    //todo:test
     @GetMapping("/dish/list")
     public Result dishPageController(DishPageDTO dishPageDTO){
         log.info("用户调用菜品分页查询参数:{}",dishPageDTO);
@@ -28,7 +27,6 @@ public class DishController {
         return Result.success(pageResult);
     }
 
-    //todo:test
     @GetMapping("/dish/detail/{dishId}")
     public Result getDishDetailController(@PathVariable Long dishId){
         log.info("用户调用获取菜品详情接口,菜品id: {}", dishId);
