@@ -6,14 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+import peng.zhi.liu.intercepter.JWTTokenUserIntercepter;
 
 @Slf4j
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurationSupport {
     @Autowired
     private JWTTokenAdminIntercepter jwtTokenAdminIntercepter;
-//    @Autowired
-//    private JWTTokenUserIntercepter jwtTokenUserIntercepter;
+    @Autowired
+    private JWTTokenUserIntercepter jwtTokenUserIntercepter;
 
     @Override
     //添加拦截器
@@ -22,10 +23,10 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         interceptorRegistry.addInterceptor(jwtTokenAdminIntercepter)
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/login");
-//
-//        interceptorRegistry.addInterceptor(jwtTokenUserIntercepter)
-//                .addPathPatterns("/user/**")
-//                .excludePathPatterns("/user/user/login")
-//                .excludePathPatterns("/user/shop/status");
+
+        interceptorRegistry.addInterceptor(jwtTokenUserIntercepter)
+                .addPathPatterns("/user/**")
+                .excludePathPatterns("/user/login")
+                .excludePathPatterns("/user/register");
     }
 }

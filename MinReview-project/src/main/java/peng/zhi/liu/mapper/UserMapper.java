@@ -19,4 +19,8 @@ public interface UserMapper {
     public void deleteUserMapper(Long userId);
     //根据id获取用户信息
     public UserInfoVO getUserInfoById(Long id);
+    //根据name查找用户
+    public User selectUserByName(String name);
+    //新增用户
+    public void addUserMapper(User user);
 }

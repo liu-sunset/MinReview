@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="peng.zhi.liu.mapper.UserMapper">
+    <insert id="addUserMapper">
+        insert into user(name, password, create_time, update_time)
+                    values(#{name},#{password},#{createTime},#{updateTime})
+    </insert>
     <update id="modifyUserMapper">
         update user
         <set>
@@ -30,5 +34,8 @@
     </select>
     <select id="getUserInfoById" parameterType="java.lang.Long" resultType="peng.zhi.liu.vo.UserInfoVO">
         select * from user where id = #{id}
+    </select>
+    <select id="selectUserByName" resultType="peng.zhi.liu.entity.User">
+        select * from user where name = #{name}
     </select>
 </mapper>

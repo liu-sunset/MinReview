@@ -1,9 +1,12 @@
 package peng.zhi.liu.service;
 
+import peng.zhi.liu.dto.UserLoginDTO;
 import peng.zhi.liu.dto.UserPageDTO;
+import peng.zhi.liu.entity.User;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.vo.UserInfoVO;
 import peng.zhi.liu.dto.UpdateUserDTO;
+import peng.zhi.liu.vo.UserLoginVO;
 
 import java.util.List;
 
@@ -18,4 +21,8 @@ public interface UserService {
     public UserInfoVO getUserInfoByIdService(Long id);
     //更新用户信息
     public void updateUserInfoService(UpdateUserDTO updateUserDTO);
+    //用户登录
+    public UserLoginVO userLoginService(UserLoginDTO userLoginDTO);
+    //用户注册
+    public void userRegisterService(UserLoginDTO userLoginDTO);
 }
