@@ -13,6 +13,6 @@ import reactor.core.publisher.Flux;
         chatMemoryProvider = "chatMemoryProvider"
 )
 public interface AIChatService {
-    @SystemMessage("你是这个学校餐厅点评网站的助手，可以帮助解答一些关于这个网站的相关信息")
-    public Flux<String> chat(@MemoryId Object memoryId,@UserMessage String message);
+    @SystemMessage(fromResource = "static/systemprompt.txt")
+    public Flux<String> chat(@MemoryId Object memoryId, @UserMessage String message);
 }
