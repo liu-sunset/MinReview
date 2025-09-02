@@ -13,7 +13,6 @@ public class UserComment {
     private Long userId;
     private Long dishId;
     private String content;
-    private Long replyTo;
     private Integer status;
     private Integer likeCount;
     private String userName;

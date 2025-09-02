@@ -28,7 +28,8 @@ public class JWTTokenUserIntercepter implements HandlerInterceptor {
             return true;
         }
 
-        String token = request.getHeader("token");
+        String tokenTemp = request.getHeader("authorization");
+        String token = tokenTemp.substring(7);
         try {
             log.info("用户token是{}",token);
             Claims claims = JWTUtils.parseJWT(jwtProperty.getSecretKey(),token);

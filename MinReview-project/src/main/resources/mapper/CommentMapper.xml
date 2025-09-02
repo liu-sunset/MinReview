@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="peng.zhi.liu.mapper.CommentMapper">
     <insert id="addCommentMapper">
-        insert into user_comment(user_id, dish_id, content, reply_to, create_time, update_time, user_name, avatar_url)
-                    values(#{userId},#{dishId},#{content},#{replyTo},#{createTime},#{updateTime},#{userName},#{avatarUrl})
+        insert into user_comment(user_id, dish_id, content, create_time, update_time, user_name, avatar_url)
+                    values(#{userId},#{dishId},#{content},#{createTime},#{updateTime},#{userName},#{avatarUrl})
     </insert>
 
     <!-- 评论分页查询 -->
@@ -13,7 +13,6 @@
             uc.user_id as userId,
             uc.dish_id as dishId,
             content,
-            reply_to as replyTo,
             uc.status,
             uc.like_count as likeCount,
             uc.user_name as name,
@@ -33,13 +32,12 @@
         uc.user_id as userId,
         uc.dish_id as dishId,
         content,
-        reply_to as replyTo,
         uc.status,
         uc.like_count as likeCount,
         uc.user_name as name,
         uc.avatar_url,
         uc.update_time as updateTime
-        from user_comment
+        from user_comment uc
         <where>
             <if test="dishId != null">
                 and dish_id = #{dishId}

@@ -3,7 +3,6 @@ package peng.zhi.liu.intercepter;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,8 @@ public class JWTTokenAdminIntercepter implements HandlerInterceptor {
             return true;
         }
 
-        String token = request.getHeader("token");
+        String tokenTemp = request.getHeader("authorization");
+        String token = tokenTemp.substring(7);
         try {
             log.info("管理员token是{}",token);
             Claims claims = JWTUtils.parseJWT(jwtProperty.getSecretKey(),token);
