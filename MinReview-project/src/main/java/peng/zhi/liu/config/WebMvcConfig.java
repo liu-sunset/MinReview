@@ -1,5 +1,6 @@
 package peng.zhi.liu.config;
 
+import lombok.ToString;
 import peng.zhi.liu.intercepter.JWTTokenAdminIntercepter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
         log.info("开始注册管理员拦截器");
         interceptorRegistry.addInterceptor(jwtTokenAdminIntercepter)
                 .addPathPatterns("/admin/**")
-                .excludePathPatterns("/admin/login");
+                .excludePathPatterns("/admin/login")
+                        .excludePathPatterns("/admin/file/upload/image");
 
         interceptorRegistry.addInterceptor(jwtTokenUserIntercepter)
                 .addPathPatterns("/user/**")

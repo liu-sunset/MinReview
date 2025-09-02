@@ -10,7 +10,6 @@
     <update id="modifyUserMapper">
         update user
         <set>
-            <if test="openId != null">,open_id = #{openId}</if>
             <if test="name != null">,name = #{name}</if>
             <if test="avatarUrl != null">,avatar_url = #{avatarUrl}</if>
             <if test="gender != null">,gender = #{gender}</if>

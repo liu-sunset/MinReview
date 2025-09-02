@@ -76,8 +76,9 @@ public class UserServiceImpl implements UserService {
     public void updateUserInfoService(UpdateUserDTO updateUserDTO) {
         User user = User.builder()
                 .id(updateUserDTO.getId())
-                .name(updateUserDTO.getNickName())
+                .name(updateUserDTO.getName())
                 .avatarUrl(updateUserDTO.getAvatarUrl())
+                .phone(updateUserDTO.getPhone())
                 .updateTime(LocalDateTime.now())
                 .gender(updateUserDTO.getGender())
                 .build();
