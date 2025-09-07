@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.dto.DishPageDTO;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
@@ -20,6 +21,7 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
+    @JwtInspect
     @GetMapping("/dish/list")
     public Result dishPageController(DishPageDTO dishPageDTO){
         log.info("用户调用菜品分页查询参数:{}",dishPageDTO);
@@ -27,6 +29,7 @@ public class DishController {
         return Result.success(pageResult);
     }
 
+    @JwtInspect
     @GetMapping("/dish/detail/{dishId}")
     public Result getDishDetailController(@PathVariable Long dishId){
         log.info("用户调用获取菜品详情接口,菜品id: {}", dishId);

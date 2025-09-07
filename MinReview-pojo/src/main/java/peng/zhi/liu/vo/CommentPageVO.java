@@ -13,6 +13,7 @@ public class CommentPageVO {
     private Long userId;
     private Long dishId;
     private String content;
+    private String imageUrl;
     private Integer status;
     private Integer likeCount;
     private String name;

@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class UserPageVO {
     private Long id;
     private String name;
-    private String openId;
     private String avatarUrl;
     private Integer gender;
     private Integer status;

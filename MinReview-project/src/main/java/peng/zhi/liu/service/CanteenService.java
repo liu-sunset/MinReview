@@ -20,4 +20,6 @@ public interface CanteenService {
     List<CanteenVO> getCanteenListByCampusIdService(Long campusId);
     //更新餐厅状态
     public void updateCanteenStatusService(Long id,Integer status);
+    //获取所有食堂列表
+    public List<CanteenVO> getCanteenListAdminService();
 }

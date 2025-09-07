@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.dto.AddFloorDTO;
 import peng.zhi.liu.dto.FloorPageDTO;
 import peng.zhi.liu.result.PageResult;
@@ -24,6 +25,7 @@ public class FloorController {
     @Autowired
     private FloorService floorService;
 
+    @JwtInspect
     @PostMapping
     public Result addFloorController(@RequestBody AddFloorDTO addFloorDTO) {
         log.info("添加楼层: {}", addFloorDTO);
@@ -31,6 +33,7 @@ public class FloorController {
         return Result.success();
     }
 
+    @JwtInspect
     @GetMapping("/list")
     public Result floorPageController(FloorPageDTO floorPageDTO) {
         log.info("楼层分页查询参数: {}", floorPageDTO);
@@ -38,6 +41,7 @@ public class FloorController {
         return Result.success(pageResult);
     }
 
+    @JwtInspect
     @DeleteMapping("/{floorId}")
     public Result deleteFloorController(@PathVariable Long floorId) {
         log.info("删除楼层, id: {}", floorId);

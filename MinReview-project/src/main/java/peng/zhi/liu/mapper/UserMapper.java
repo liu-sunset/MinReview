@@ -23,4 +23,6 @@ public interface UserMapper {
     public User selectUserByName(String name);
     //新增用户
     public void addUserMapper(User user);
+    //查找用户
+    public List<User> getUser(User user);
 }

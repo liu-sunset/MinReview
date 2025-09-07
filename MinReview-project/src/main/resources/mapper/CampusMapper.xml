@@ -36,4 +36,7 @@
           where c.status = 1
           order by c.update_time desc
       </select>
+    <select id="getCampusListAdminMapper" resultType="peng.zhi.liu.vo.CampusPageVO">
+        select * from campus order by update_time
+    </select>
 </mapper>

@@ -19,7 +19,8 @@ public interface CampusMapper {
     public void modifyCampusMapper(Campus campus);
     //删除校区
     public void deleteCampusMapper(Long id);
-    
     //获取校区列表
     public List<CampusPageVO> getCampusListMapper();
+    //管理员获取校区列表
+    public List<CampusPageVO> getCampusListAdminMapper();
 }

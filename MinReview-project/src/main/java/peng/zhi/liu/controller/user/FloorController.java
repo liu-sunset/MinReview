@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.FloorService;
 import peng.zhi.liu.vo.FloorVO;
@@ -19,6 +20,7 @@ public class FloorController {
     @Autowired
     private FloorService floorService;
 
+    @JwtInspect
     @GetMapping("/floor/list/{canteenId}")
     public Result getFloorListByCanteenId(@PathVariable Long canteenId) {
         log.info("根据食堂ID获取楼层列表,食堂ID: {}", canteenId);

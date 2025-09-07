@@ -3,6 +3,7 @@ package peng.zhi.liu.controller.admin;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.dto.*;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
@@ -17,9 +18,8 @@ public class AdminController {
 
     @Autowired
     private AdminService adminService;
-    @Autowired
-    private DishController adminDishController;
 
+    @JwtInspect
     @GetMapping("/admin/list")
     public Result adminPageController(AdminPageDTO adminPageDTO){
         log.info("管理员分页查询参数:{}",adminPageDTO);
@@ -27,7 +27,7 @@ public class AdminController {
         return Result.success(pageResult);
     }
 
-    
+
     @PostMapping("/login")
     public Result adminLoginController(@RequestBody AdminLoginDTO adminLoginDTO){
         log.info("管理员登录信息:{}",adminLoginDTO);
@@ -35,6 +35,7 @@ public class AdminController {
         return Result.success(adminLoginVO);
     }
 
+    @JwtInspect
     @PostMapping("/admin")
     public Result addAdminController(@RequestBody AddAdminDTO addAdminDTO){
         log.info("添加管理员信息:{}",addAdminDTO);
@@ -42,6 +43,7 @@ public class AdminController {
         return Result.success();
     }
 
+    @JwtInspect
     @PutMapping("/admin/name/{adminId}")
     public Result updateAdminNameController(@PathVariable Long adminId, @RequestBody ModifyAdminNameDTO modifyAdminNameDTO){
         log.info("更新管理员名称,管理员id:{},新名称:{}",adminId,modifyAdminNameDTO.getName());
@@ -49,6 +51,7 @@ public class AdminController {
         return Result.success();
     }
 
+    @JwtInspect
     @DeleteMapping("/admin/{adminId}")
     public Result deleteAdminController(@PathVariable Long adminId){
         log.info("删除管理员,管理员id:{}",adminId);
@@ -56,6 +59,7 @@ public class AdminController {
         return Result.success();
     }
 
+    @JwtInspect
     @PutMapping("/admin/status/{adminId}/{status}")
     public Result updateAdminStatusController(@PathVariable Long adminId, @PathVariable Integer status){
         log.info("更新管理员状态,管理员id:{},新状态:{}",adminId,status);
@@ -63,6 +67,7 @@ public class AdminController {
         return Result.success();
     }
 
+    @JwtInspect
     @PutMapping("/admin/password/{adminId}")
     public Result updateAdminPasswordController(@PathVariable Long adminId, @RequestBody ModifyAdminPasswordDTO modifyAdminPasswordDTO){
         log.info("修改管理员密码，管理员ID:{},修密码：{}，新密码:{}",adminId,modifyAdminPasswordDTO.getOldPassword(),modifyAdminPasswordDTO.getNewPassword());

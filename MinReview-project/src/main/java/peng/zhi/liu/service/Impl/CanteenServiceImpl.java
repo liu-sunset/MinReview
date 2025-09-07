@@ -67,4 +67,9 @@ public class CanteenServiceImpl implements CanteenService {
         canteen.setUpdateTime(LocalDateTime.now());
         canteenMapper.modifyCanteenMapper(canteen);
     }
+
+    @Override
+    public List<CanteenVO> getCanteenListAdminService() {
+        return canteenMapper.getCanteenListAdminMapper();
+    }
 }

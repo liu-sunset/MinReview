@@ -57,6 +57,11 @@ public class CampusServiceImpl implements CampusService {
     }
 
     @Override
+    public List<CampusPageVO> getCampusListAdminService() {
+        return campusMapper.getCampusListAdminMapper();
+    }
+
+    @Override
     public void updateCampusStatusService(Long id, Integer status) {
         Campus campus = new Campus();
         campus.setUpdateTime(LocalDateTime.now());

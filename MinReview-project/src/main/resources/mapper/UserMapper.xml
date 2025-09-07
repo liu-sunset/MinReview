@@ -37,4 +37,18 @@
     <select id="selectUserByName" resultType="peng.zhi.liu.entity.User">
         select * from user where name = #{name}
     </select>
+    <select id="getUser" resultType="peng.zhi.liu.entity.User">
+        select * from user
+        <where>
+            <if test="id!=null">and id = #{id}</if>
+            <if test="name!=null">and name = #{name}</if>
+            <if test="password!=null">and password = #{password}</if>
+            <if test="avatarUrl!=null">and avatar_url = #{avatarUrl}</if>
+            <if test="gender!=null">and gender = #{gender}</if>
+            <if test="phone!=null">and phone = #{phone}</if>
+            <if test="status!=null">and status = #{status}</if>
+            <if test="createTime!=null">and create_time = #{createTime}</if>
+            <if test="updateTime!=null">and update_time = #{updateTime}</if>
+        </where>
+    </select>
 </mapper>

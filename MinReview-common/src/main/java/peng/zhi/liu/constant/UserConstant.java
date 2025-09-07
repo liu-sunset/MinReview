@@ -5,4 +5,5 @@ public class UserConstant {
     public static final String PASSWORD_ERROR = "用户名或者密码错误";
     public static final String USER_ID_INTERCEPTER = "userId";
     public static final String USER_EXIST = "用户已存在";
+    public static final String TOKEN_INVALID = "用户令牌无效";
 }

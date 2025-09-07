@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.dto.AgreeDTO;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.AgreeService;
@@ -19,6 +20,7 @@ public class AgreeController {
     @Autowired
     private AgreeService agreeService;
 
+    @JwtInspect
     @PostMapping("/like")
     public Result likeDish(@RequestBody AgreeDTO agreeDTO) {
         log.info("用户点赞菜品,参数: {}", agreeDTO);
@@ -26,6 +28,7 @@ public class AgreeController {
         return Result.success();
     }
 
+    @JwtInspect
     @DeleteMapping("/like/{dishId}/{userId}")
     public Result cancelLikeDish(@PathVariable Long dishId, @PathVariable Long userId) {
         log.info("用户取消点赞菜品,菜品id: {}, 用户id: {}", dishId, userId);

@@ -3,6 +3,7 @@ package peng.zhi.liu.controller.admin;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.dto.AddDishDTO;
 import peng.zhi.liu.dto.DishPageDTO;
 import peng.zhi.liu.dto.UpdateDishDTO;
@@ -18,7 +19,7 @@ import peng.zhi.liu.vo.DishPageVO;
 public class DishController {
     @Autowired
     private DishService dishService;
-
+    @JwtInspect
     @GetMapping("/list")
     public Result dishPageController(DishPageDTO dishPageDTO) {
         log.info("菜品分页查询参数: {}", dishPageDTO);
@@ -26,6 +27,7 @@ public class DishController {
         return Result.success(pageResult);
     }
 
+    @JwtInspect
     @PostMapping
     public Result addDishController(@RequestBody AddDishDTO addDishDTO) {
         log.info("添加菜品参数: {}", addDishDTO);
@@ -33,6 +35,7 @@ public class DishController {
         return Result.success();
     }
 
+    @JwtInspect
     @PutMapping("/{dishId}")
     public Result updateDishController(@PathVariable Long dishId, @RequestBody UpdateDishDTO updateDishDTO) {
         log.info("更新菜品参数: dishId={}, updateDishDTO={}", dishId, updateDishDTO);
@@ -43,6 +46,7 @@ public class DishController {
         return Result.success();
     }
 
+    @JwtInspect
     @DeleteMapping("/{dishId}")
     public Result deleteDishController(@PathVariable Long dishId) {
         log.info("删除菜品参数: dishId={}", dishId);
@@ -51,6 +55,7 @@ public class DishController {
         return Result.success();
     }
 
+    @JwtInspect
     @PutMapping("/status/{dishId}")
     public Result updateDishStatusController(@PathVariable Long dishId, @RequestParam Integer status){
         log.info("修改菜品ID是{}的状态为{}",dishId,status);

@@ -14,11 +14,12 @@
             uc.dish_id as dishId,
             content,
             uc.status,
+            dish.image_url,
             uc.like_count as likeCount,
             uc.user_name as name,
             uc.avatar_url,
             uc.update_time as updateTime
-        from user_comment uc
+        from user_comment uc left join dish on dish.id = uc.dish_id
         <where>
             <if test="dishId != null">
                 and dish_id = #{dishId}

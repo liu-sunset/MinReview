@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.dto.DisagreeDTO;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.DisagreeService;
@@ -19,6 +20,7 @@ public class DisagreeController {
     @Autowired
     private DisagreeService disagreeService;
 
+    @JwtInspect
     @PostMapping("/dislike")
     public Result dislikeDish(@RequestBody DisagreeDTO disagreeDTO) {
         log.info("用户点踩菜品,参数: {}", disagreeDTO);
@@ -26,6 +28,7 @@ public class DisagreeController {
         return Result.success();
     }
 
+    @JwtInspect
     @DeleteMapping("/dislike/{dishId}/{userId}")
     public Result cancelDislikeDish(@PathVariable Long dishId, @PathVariable Long userId) {
         log.info("用户取消点踩菜品,菜品id: {}, 用户id: {}", dishId, userId);

@@ -61,4 +61,7 @@
         and c.status = 1
         order by c.update_time desc
     </select>
+    <select id="getCanteenListAdminMapper" resultType="peng.zhi.liu.vo.CanteenVO">
+        select * from canteen order by update_time
+    </select>
 </mapper>
