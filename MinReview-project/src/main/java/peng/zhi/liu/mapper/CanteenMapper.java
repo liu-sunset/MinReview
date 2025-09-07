@@ -20,6 +20,4 @@ public interface CanteenMapper {
     void deleteCanteenMapper(Long id);
     //根据校区ID获取食堂列表
     List<CanteenVO> getCanteenListByCampusIdMapper(Long campusId);
-    //管理员获取所有食堂列表
-    public List<CanteenVO> getCanteenListAdminMapper();
 }

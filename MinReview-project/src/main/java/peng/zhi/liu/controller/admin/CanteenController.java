@@ -63,11 +63,4 @@ public class CanteenController {
         return Result.success();
     }
 
-    @JwtInspect
-    @GetMapping("/alllist")
-    public Result getCanteenListAdminController(){
-        log.info("获取所有食堂列表");
-        List<CanteenVO> canteenVOList = canteenService.getCanteenListAdminService();
-        return Result.success(canteenVOList);
-    }
 }

@@ -2,7 +2,9 @@ package peng.zhi.liu.service.Impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import peng.zhi.liu.constant.AdminConstant;
@@ -16,6 +18,7 @@ import peng.zhi.liu.mapper.AdminMapper;
 import peng.zhi.liu.property.JWTProperty;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.AdminService;
+import peng.zhi.liu.utils.BaseContext;
 import peng.zhi.liu.utils.JWTUtils;
 import peng.zhi.liu.vo.AdminLoginVO;
 import peng.zhi.liu.vo.AdminPageVO;
@@ -25,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -32,6 +36,8 @@ public class AdminServiceImpl implements AdminService {
     private AdminMapper adminMapper;
     @Autowired
     private JWTProperty jwtProperty;
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
     //管理员分页查询
     @Override
     public PageResult<AdminPageVO> adminPageService(AdminPageDTO adminPageDTO) {
@@ -182,5 +188,14 @@ public class AdminServiceImpl implements AdminService {
         admin.setPassword(newPassword);
         admin.setUpdateTime(LocalDateTime.now());
         adminMapper.updateAdminMapper(admin);
+    }
+
+    @Override
+    public void adminLoginoutService(HttpServletRequest httpServletRequest) {
+        //获取用户的token
+        String authorization = httpServletRequest.getHeader("Authorization");
+        String token = authorization.substring(7);
+        Long ID = -BaseContext.getId();
+        stringRedisTemplate.opsForValue().set(ID.toString(),token,jwtProperty.getTtlTime()/1000, TimeUnit.SECONDS);
     }
 }

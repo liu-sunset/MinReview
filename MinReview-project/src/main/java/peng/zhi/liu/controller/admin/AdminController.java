@@ -1,5 +1,6 @@
 package peng.zhi.liu.controller.admin;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +73,14 @@ public class AdminController {
     public Result updateAdminPasswordController(@PathVariable Long adminId, @RequestBody ModifyAdminPasswordDTO modifyAdminPasswordDTO){
         log.info("修改管理员密码，管理员ID:{},修密码：{}，新密码:{}",adminId,modifyAdminPasswordDTO.getOldPassword(),modifyAdminPasswordDTO.getNewPassword());
         adminService.updateAdminPasswordController(adminId,modifyAdminPasswordDTO);
+        return Result.success();
+    }
+
+    @JwtInspect
+    @PostMapping("/logout")
+    public Result userLogoutController(HttpServletRequest httpServletRequest){
+        log.info("管理员登出");
+        adminService.adminLoginoutService(httpServletRequest);
         return Result.success();
     }
 }

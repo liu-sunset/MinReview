@@ -11,7 +11,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import peng.zhi.liu.constant.MessageConstant;
 import peng.zhi.liu.constant.UserConstant;
+import peng.zhi.liu.exception.OrdinaryException;
 import peng.zhi.liu.exception.UserException;
 
 @Slf4j
@@ -33,7 +35,7 @@ public class JwtAspect {
         String token = authorization.substring(7);
         Boolean flag = stringRedisTemplate.hasKey(token);
         if(flag){
-            throw new UserException(UserConstant.TOKEN_INVALID);
+            throw new OrdinaryException(MessageConstant.TOKEN_INVALIDED);
         }
     }
 }

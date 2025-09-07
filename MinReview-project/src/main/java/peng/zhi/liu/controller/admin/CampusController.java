@@ -58,12 +58,4 @@ public class CampusController {
         campusService.updateCampusStatusService(campusId,status);
         return Result.success();
     }
-
-    @JwtInspect
-    @GetMapping("/alllist")
-    public Result getCampusListAdminController(){
-        log.info("获取所有校区列表");
-        List<CampusPageVO> campusPageVOList = campusService.getCampusListAdminService();
-        return Result.success(campusPageVOList);
-    }
 }

@@ -84,6 +84,11 @@ public class UserServiceImpl implements UserService {
                 .updateTime(LocalDateTime.now())
                 .gender(updateUserDTO.getGender())
                 .build();
+        //查找是否存在同名情况
+        User userTemp = userMapper.selectUserByName(user.getName());
+        if(userTemp!=null){
+            throw new UserException(UserConstant.USER_EXIST);
+        }
         userMapper.modifyUserMapper(user);
     }
 

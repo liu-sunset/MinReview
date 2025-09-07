@@ -19,6 +19,4 @@ public interface CampusService {
     public void updateCampusStatusService(Long id,Integer status);
     //获取校区列表
     public List<CampusPageVO> getCampusListService();
-    //管理员获取校区列表
-    public List<CampusPageVO> getCampusListAdminService();
 }

@@ -1,5 +1,6 @@
 package peng.zhi.liu.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import peng.zhi.liu.dto.AddAdminDTO;
 import peng.zhi.liu.dto.AdminLoginDTO;
 import peng.zhi.liu.dto.AdminPageDTO;
@@ -23,4 +24,6 @@ public interface AdminService {
     public void updateAdminStatusService(Long adminId, Integer status);
     //更新管理员密码
     public void updateAdminPasswordController(Long adminId, ModifyAdminPasswordDTO modifyAdminPasswordDTO);
+    //管理员登出
+    public void adminLoginoutService(HttpServletRequest httpServletRequest);
 }
