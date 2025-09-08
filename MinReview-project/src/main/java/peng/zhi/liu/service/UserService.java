@@ -22,9 +22,9 @@ public interface UserService {
     //更新用户信息
     public void updateUserInfoService(UpdateUserDTO updateUserDTO);
     //用户登录
-    public UserLoginVO userLoginService(UserLoginDTO userLoginDTO);
+    public UserLoginVO userLoginService(UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest);
     //用户注册
-    public void userRegisterService(UserLoginDTO userLoginDTO);
+    public void userRegisterService(UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest);
     //修改用户密码
     public void updateUserPasswordService(Long userId, ModifyUserPasswordDTO modifyUserPasswordDTO);
     //用户登出

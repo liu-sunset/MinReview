@@ -11,7 +11,7 @@ import peng.zhi.liu.vo.AdminPageVO;
 
 public interface AdminService {
     //员工登录
-    public AdminLoginVO empLoginService(AdminLoginDTO employeeLoginDTO);
+    public AdminLoginVO empLoginService(AdminLoginDTO employeeLoginDTO,HttpServletRequest httpServletRequest);
     //管理员分页查询
     public PageResult<AdminPageVO> adminPageService(AdminPageDTO adminPageDTO);
     // 添加管理员

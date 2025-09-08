@@ -1,7 +1,6 @@
 package peng.zhi.liu.handle;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,8 +15,8 @@ public class GlobalExceptionHandler {
     * 处理所有异常
     * mybatis会将SQLIntegrityConstraintViolationException封装成runtimeexception向上抛出
     * */
-    @ExceptionHandler
-    public Result exceptionHandler(RuntimeException e){
+    @ExceptionHandler(Exception.class)
+    public Result exceptionHandler(Exception e){
         if (e.getCause() instanceof SQLIntegrityConstraintViolationException && e.getMessage().contains("Duplicate entry")){
             SQLIntegrityConstraintViolationException se = (SQLIntegrityConstraintViolationException) e.getCause();
             String[] splits = se.getMessage().split(" ");

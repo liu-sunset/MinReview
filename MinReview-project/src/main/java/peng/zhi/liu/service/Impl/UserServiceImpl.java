@@ -7,12 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
+import peng.zhi.liu.constant.MessageConstant;
 import peng.zhi.liu.constant.UserConstant;
+import peng.zhi.liu.controller.CaptchaController;
 import peng.zhi.liu.dto.ModifyUserPasswordDTO;
 import peng.zhi.liu.dto.UserLoginDTO;
 import peng.zhi.liu.dto.UserPageDTO;
 import peng.zhi.liu.dto.UpdateUserDTO;
 import peng.zhi.liu.entity.User;
+import peng.zhi.liu.exception.AdminException;
 import peng.zhi.liu.exception.UserException;
 import peng.zhi.liu.mapper.CommentMapper;
 import peng.zhi.liu.mapper.UserMapper;
@@ -40,6 +43,8 @@ public class UserServiceImpl implements UserService {
     private JWTProperty jwtProperty;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private CaptchaController captchaController;
     //用户分页查询
     @Override
     public PageResult<UserPageVO> userPageService(UserPageDTO userPageDTO) {
@@ -93,7 +98,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserLoginVO userLoginService(UserLoginDTO userLoginDTO) {
+    public UserLoginVO userLoginService(UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest) {
+        //校验图形验证码
+        //检验图片验证码
+        if (!captchaController.verifyCaptcha(userLoginDTO.getCaptcha(),httpServletRequest)){
+            throw new UserException(MessageConstant.INDENTITY_FALSE);
+        }
         //查询数据库
         User user = userMapper.selectUserByName(userLoginDTO.getName());
         if(user==null){
@@ -112,7 +122,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void userRegisterService(UserLoginDTO userLoginDTO) {
+    public void userRegisterService(UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest) {
+        //检验图片验证码
+        if (!captchaController.verifyCaptcha(userLoginDTO.getCaptcha(),httpServletRequest)){
+            throw new AdminException(MessageConstant.INDENTITY_FALSE);
+        }
         //查询数据库
         User user = userMapper.selectUserByName(userLoginDTO.getName());
         if(user!=null){

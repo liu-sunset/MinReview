@@ -23,16 +23,16 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    public Result userLoginController(@RequestBody UserLoginDTO userLoginDTO){
+    public Result userLoginController(@RequestBody UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest){
         log.info("用户登录信息:{}",userLoginDTO);
-        UserLoginVO userLoginVO = userService.userLoginService(userLoginDTO);
+        UserLoginVO userLoginVO = userService.userLoginService(userLoginDTO,httpServletRequest);
         return Result.success(userLoginVO);
     }
 
     @PostMapping("/register")
-    public Result userRegisterController(@RequestBody UserLoginDTO userLoginDTO){
+    public Result userRegisterController(@RequestBody UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest){
         log.info("用户注册信息:{}",userLoginDTO);
-        userService.userRegisterService(userLoginDTO);
+        userService.userRegisterService(userLoginDTO,httpServletRequest);
         return Result.success();
     }
 

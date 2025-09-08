@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import peng.zhi.liu.constant.AdminConstant;
+import peng.zhi.liu.constant.MessageConstant;
+import peng.zhi.liu.controller.CaptchaController;
 import peng.zhi.liu.dto.AdminLoginDTO;
 import peng.zhi.liu.dto.AdminPageDTO;
 import peng.zhi.liu.dto.AddAdminDTO;
@@ -22,7 +24,6 @@ import peng.zhi.liu.utils.BaseContext;
 import peng.zhi.liu.utils.JWTUtils;
 import peng.zhi.liu.vo.AdminLoginVO;
 import peng.zhi.liu.vo.AdminPageVO;
-
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,8 @@ public class AdminServiceImpl implements AdminService {
     private JWTProperty jwtProperty;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    private CaptchaController captchaController;
     //管理员分页查询
     @Override
     public PageResult<AdminPageVO> adminPageService(AdminPageDTO adminPageDTO) {
@@ -80,7 +83,11 @@ public class AdminServiceImpl implements AdminService {
 
     //员工登录
     @Override
-    public AdminLoginVO empLoginService(AdminLoginDTO adminLoginDTO) {
+    public AdminLoginVO empLoginService(AdminLoginDTO adminLoginDTO,HttpServletRequest httpServletRequest) {
+        //检验图片验证码
+        if (!captchaController.verifyCaptcha(adminLoginDTO.getCaptcha(),httpServletRequest)){
+            throw new AdminException(MessageConstant.INDENTITY_FALSE);
+        }
         String username = adminLoginDTO.getUsername();
         String password = adminLoginDTO.getPassword();
         Admin admin = new Admin();

@@ -30,9 +30,9 @@ public class AdminController {
 
 
     @PostMapping("/login")
-    public Result adminLoginController(@RequestBody AdminLoginDTO adminLoginDTO){
+    public Result adminLoginController(@RequestBody AdminLoginDTO adminLoginDTO,HttpServletRequest httpServletRequest){
         log.info("管理员登录信息:{}",adminLoginDTO);
-        AdminLoginVO adminLoginVO = adminService.empLoginService(adminLoginDTO);
+        AdminLoginVO adminLoginVO = adminService.empLoginService(adminLoginDTO,httpServletRequest);
         return Result.success(adminLoginVO);
     }
 

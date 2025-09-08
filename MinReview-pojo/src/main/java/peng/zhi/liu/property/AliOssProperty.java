@@ -12,5 +12,4 @@ public class AliOssProperty {
     private String endpoint;
     private String region;
 
-
 }
