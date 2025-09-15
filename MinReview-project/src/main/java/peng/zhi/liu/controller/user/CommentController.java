@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import peng.zhi.liu.annotation.JwtInspect;
+import peng.zhi.liu.annotation.OperationLog;
 import peng.zhi.liu.dto.AddCommentDTO;
 import peng.zhi.liu.dto.CommentPageDTO;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.CommentService;
@@ -21,6 +23,7 @@ public class CommentController {
     private CommentService commentService;
     @JwtInspect
     @GetMapping("/list")
+    @OperationLog(OperationTypeEnum.select)
     public Result getCommentListController(CommentPageDTO commentPageDTO) {
         log.info("获取菜品评论列表参数: {}", commentPageDTO);
         // 调用服务层获取评论列表
@@ -30,6 +33,7 @@ public class CommentController {
 
     @JwtInspect
     @PostMapping
+    @OperationLog(OperationTypeEnum.insert)
     public Result addCommentController(@RequestBody AddCommentDTO addCommentDTO){
         log.info("用户添加评论，评论信息:{}",addCommentDTO);
         commentService.addCommentService(addCommentDTO);
@@ -38,6 +42,7 @@ public class CommentController {
 
     @JwtInspect
     @DeleteMapping("/{commentId}")
+    @OperationLog(OperationTypeEnum.delete)
     public Result deleteCommentController(@PathVariable Long commentId){
         log.info("用户删除评论，评论ID:{}",commentId);
         commentService.deleteCommentService(commentId);

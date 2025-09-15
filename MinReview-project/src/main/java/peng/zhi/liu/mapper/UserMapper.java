@@ -16,7 +16,7 @@ public interface UserMapper {
     //修改用户
     public void modifyUserMapper(User user);
     //删除用户
-    public void deleteUserMapper(Long userId);
+    public void deleteUserMapper(List<Long> ids);
     //根据id获取用户信息
     public UserInfoVO getUserInfoById(Long id);
     //根据name查找用户

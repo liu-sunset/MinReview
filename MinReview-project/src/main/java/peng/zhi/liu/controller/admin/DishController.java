@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import peng.zhi.liu.annotation.JwtInspect;
+import peng.zhi.liu.annotation.OperationLog;
 import peng.zhi.liu.dto.AddDishDTO;
 import peng.zhi.liu.dto.DishPageDTO;
 import peng.zhi.liu.dto.UpdateDishDTO;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.DishService;
@@ -21,6 +23,7 @@ public class DishController {
     private DishService dishService;
     @JwtInspect
     @GetMapping("/list")
+    @OperationLog(OperationTypeEnum.select)
     public Result dishPageController(DishPageDTO dishPageDTO) {
         log.info("菜品分页查询参数: {}", dishPageDTO);
         PageResult<DishPageVO> pageResult = dishService.dishPageService(dishPageDTO);
@@ -29,6 +32,7 @@ public class DishController {
 
     @JwtInspect
     @PostMapping
+    @OperationLog(OperationTypeEnum.insert)
     public Result addDishController(@RequestBody AddDishDTO addDishDTO) {
         log.info("添加菜品参数: {}", addDishDTO);
         dishService.addDishService(addDishDTO);
@@ -37,6 +41,7 @@ public class DishController {
 
     @JwtInspect
     @PutMapping("/{dishId}")
+    @OperationLog(OperationTypeEnum.update)
     public Result updateDishController(@PathVariable Long dishId, @RequestBody UpdateDishDTO updateDishDTO) {
         log.info("更新菜品参数: dishId={}, updateDishDTO={}", dishId, updateDishDTO);
         //设置菜品id
@@ -48,6 +53,7 @@ public class DishController {
 
     @JwtInspect
     @DeleteMapping("/{dishId}")
+    @OperationLog(OperationTypeEnum.delete)
     public Result deleteDishController(@PathVariable Long dishId) {
         log.info("删除菜品参数: dishId={}", dishId);
         //调用service层方法
@@ -57,6 +63,7 @@ public class DishController {
 
     @JwtInspect
     @PutMapping("/status/{dishId}")
+    @OperationLog(OperationTypeEnum.update)
     public Result updateDishStatusController(@PathVariable Long dishId, @RequestParam Integer status){
         log.info("修改菜品ID是{}的状态为{}",dishId,status);
         dishService.updateDishStatusService(dishId,status);

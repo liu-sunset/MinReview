@@ -13,6 +13,7 @@ import peng.zhi.liu.constant.AdminConstant;
 import peng.zhi.liu.constant.UserConstant;
 import peng.zhi.liu.property.JWTProperty;
 import peng.zhi.liu.utils.BaseContext;
+import peng.zhi.liu.utils.BaseContextIndenty;
 import peng.zhi.liu.utils.JWTUtils;
 
 
@@ -35,6 +36,7 @@ public class JWTTokenUserIntercepter implements HandlerInterceptor {
             Claims claims = JWTUtils.parseJWT(jwtProperty.getSecretKey(),token);
             long userId = Long.valueOf( claims.get(UserConstant.USER_ID_INTERCEPTER).toString());
             BaseContext.setId(userId);
+            BaseContextIndenty.setThreadLocal("user");
             return true;
         }catch(Exception e)
         {

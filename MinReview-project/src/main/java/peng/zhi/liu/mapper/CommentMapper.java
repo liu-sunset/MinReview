@@ -17,4 +17,6 @@ public interface CommentMapper {
     Page<CommentPageVO> userCommentPageMapper(CommentPageDTO commentPageDTO);
     //添加用户评论
     public void addCommentMapper(UserComment userComment);
+    //修改用户的评论头像为默认头像
+    public void modifyCommentAvatarMapper(Long id,String avatarUrl);
 }

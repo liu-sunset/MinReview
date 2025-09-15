@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="peng.zhi.liu.mapper.OperationLogMapper">
+
+    <insert id="addOperationLogMapper">
+        insert into operation_log(user_id, admin_id, operation_type, request_url, request_method, request_params, response_data, error_msg,execute_time,create_time)
+        values(#{userId},#{adminId},#{operationType},#{requestUrl},#{requestMethod},#{requestParams},#{responseData},#{errorMsg},#{executeTime},#{createTime})
+    </insert>
+</mapper>

@@ -5,6 +5,13 @@
         insert into user_comment(user_id, dish_id, content, create_time, update_time, user_name, avatar_url)
                     values(#{userId},#{dishId},#{content},#{createTime},#{updateTime},#{userName},#{avatarUrl})
     </insert>
+    <update id="modifyCommentAvatarMapper">
+        update user_comment
+        <set>
+            <if test="avatarUrl!=null">avatar_url = #{avatarUrl}</if>
+        </set>
+        where id = #{id}
+    </update>
 
     <!-- 评论分页查询 -->
     <select id="commentPageMapper" parameterType="peng.zhi.liu.dto.CommentPageDTO" resultType="peng.zhi.liu.vo.CommentPageVO">

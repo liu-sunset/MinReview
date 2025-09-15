@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import peng.zhi.liu.annotation.JwtInspect;
+import peng.zhi.liu.annotation.OperationLog;
 import peng.zhi.liu.dto.AddCanteenDTO;
 import peng.zhi.liu.dto.CanteenPageDTO;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.CanteenService;
@@ -29,6 +31,7 @@ public class CanteenController {
     private CanteenService canteenService;
     @JwtInspect
     @PostMapping
+    @OperationLog(OperationTypeEnum.insert)
     public Result addCanteenController(@RequestBody AddCanteenDTO addCanteenDTO) {
         log.info("添加餐厅: {}", addCanteenDTO);
         canteenService.addCanteenService(addCanteenDTO);
@@ -36,6 +39,7 @@ public class CanteenController {
     }
     @JwtInspect
     @GetMapping("/list")
+    @OperationLog(OperationTypeEnum.select)
     public Result canteenPageController(CanteenPageDTO canteenPageDTO) {
         log.info("餐厅分页查询参数: {}", canteenPageDTO);
         PageResult<CanteenPageVO> pageResult = canteenService.canteenPageService(canteenPageDTO);
@@ -43,6 +47,7 @@ public class CanteenController {
     }
     @JwtInspect
     @PutMapping("/{canteenId}")
+    @OperationLog(OperationTypeEnum.update)
     public Result modifyCanteenController(@PathVariable Long canteenId, @RequestBody AddCanteenDTO addCanteenDTO) {
         log.info("更新餐厅: id={}, 数据={}", canteenId, addCanteenDTO);
         canteenService.modifyCanteenService(canteenId, addCanteenDTO);
@@ -50,6 +55,7 @@ public class CanteenController {
     }
     @JwtInspect
     @DeleteMapping("/{canteenId}")
+    @OperationLog(OperationTypeEnum.delete)
     public Result deleteCanteenController(@PathVariable Long canteenId) {
         log.info("删除餐厅: id={}", canteenId);
         canteenService.deleteCanteenService(canteenId);
@@ -57,10 +63,10 @@ public class CanteenController {
     }
     @JwtInspect
     @PutMapping("/status/{canteenId}")
+    @OperationLog(OperationTypeEnum.update)
     public Result updateCanteenStatusController(@PathVariable Long canteenId,Integer status){
         log.info("更新餐厅状态,餐厅ID:{},餐厅状态:{}",canteenId,status);
         canteenService.updateCanteenStatusService(canteenId,status);
         return Result.success();
     }
-
 }

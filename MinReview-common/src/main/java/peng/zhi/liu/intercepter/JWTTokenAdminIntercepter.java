@@ -12,6 +12,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import peng.zhi.liu.constant.AdminConstant;
 import peng.zhi.liu.property.JWTProperty;
 import peng.zhi.liu.utils.BaseContext;
+import peng.zhi.liu.utils.BaseContextIndenty;
 import peng.zhi.liu.utils.JWTUtils;
 
 
@@ -34,6 +35,7 @@ public class JWTTokenAdminIntercepter implements HandlerInterceptor {
             Claims claims = JWTUtils.parseJWT(jwtProperty.getSecretKey(),token);
             long adminId = Long.valueOf( claims.get(AdminConstant.ADMIN_ID_INTERCEPTER).toString());
             BaseContext.setId(adminId);
+            BaseContextIndenty.setThreadLocal("admin");
             return true;
         }catch(Exception e)
         {

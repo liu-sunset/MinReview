@@ -10,13 +10,17 @@ import peng.zhi.liu.dto.UpdateUserDTO;
 import peng.zhi.liu.vo.UserLoginVO;
 import peng.zhi.liu.vo.UserPageVO;
 
+import java.util.List;
+
 public interface UserService {
     //用户分页查询
     public PageResult<UserPageVO> userPageService(UserPageDTO userPageDTO);
     //修改用户状态
     public void modifyUserStatusService(Long userId,Integer status);
-    //删除用户
-    public void deleteUserService(Long userId);
+    //管理员删除用户
+    public void deleteUserService(List<Long> ids) throws Exception;
+    //用户注销账号
+    public void deleteUserByUserService(Long id) throws Exception;
     //根据id获取用户信息
     public UserInfoVO getUserInfoByIdService(Long id);
     //更新用户信息

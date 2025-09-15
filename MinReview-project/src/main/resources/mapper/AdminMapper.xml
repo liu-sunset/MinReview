@@ -33,7 +33,10 @@
     </update>
 
     <delete id="deleteAdmin" parameterType="java.lang.Long">
-        delete from admin where id = #{adminId}
+        delete from admin where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
     </delete>
 
     <select id="adminPageMapper" parameterType="peng.zhi.liu.dto.AdminPageDTO" resultType="peng.zhi.liu.vo.AdminPageVO">

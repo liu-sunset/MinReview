@@ -9,6 +9,8 @@ import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.vo.AdminLoginVO;
 import peng.zhi.liu.vo.AdminPageVO;
 
+import java.util.List;
+
 public interface AdminService {
     //员工登录
     public AdminLoginVO empLoginService(AdminLoginDTO employeeLoginDTO,HttpServletRequest httpServletRequest);
@@ -19,7 +21,7 @@ public interface AdminService {
     // 更新管理员名称
     public void updateAdminNameService(Long adminId, String name);
     // 删除管理员
-    public void deleteAdminService(Long adminId);
+    public void deleteAdminService(List<Long> ids);
     // 更新管理员状态
     public void updateAdminStatusService(Long adminId, Integer status);
     //更新管理员密码

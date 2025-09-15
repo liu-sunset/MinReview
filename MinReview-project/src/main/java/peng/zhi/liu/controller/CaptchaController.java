@@ -5,6 +5,8 @@ import jakarta.servlet.ServletOutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import peng.zhi.liu.annotation.OperationLog;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.Result;
 
 import javax.imageio.ImageIO;
@@ -21,10 +23,10 @@ public class CaptchaController {
 
     @Autowired
     private DefaultKaptcha defaultKaptcha;
-
     public static final String CAPTCHA_SESSION_KEY = "captcha_code";
 
     @GetMapping("/image")
+    @OperationLog(OperationTypeEnum.getcaptcha)
     public void getCaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         log.info("请求数字图片验证码");
         // 生成验证码文本
@@ -51,6 +53,7 @@ public class CaptchaController {
     }
 
     @PostMapping("/verify")
+    @OperationLog(OperationTypeEnum.confirmcaptcha)
     public boolean verifyCaptcha(@RequestParam String code, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String sessionCode = (String) session.getAttribute(CAPTCHA_SESSION_KEY);

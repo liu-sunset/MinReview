@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import peng.zhi.liu.annotation.JwtInspect;
+import peng.zhi.liu.annotation.OperationLog;
 import peng.zhi.liu.dto.AgreeDTO;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.AgreeService;
 
@@ -22,6 +24,7 @@ public class AgreeController {
 
     @JwtInspect
     @PostMapping("/like")
+    @OperationLog(OperationTypeEnum.insert)
     public Result likeDish(@RequestBody AgreeDTO agreeDTO) {
         log.info("用户点赞菜品,参数: {}", agreeDTO);
         agreeService.likeDishService(agreeDTO);
@@ -30,6 +33,7 @@ public class AgreeController {
 
     @JwtInspect
     @DeleteMapping("/like/{dishId}/{userId}")
+    @OperationLog(OperationTypeEnum.delete)
     public Result cancelLikeDish(@PathVariable Long dishId, @PathVariable Long userId) {
         log.info("用户取消点赞菜品,菜品id: {}, 用户id: {}", dishId, userId);
         agreeService.cancelLikeDishService(dishId, userId);

@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import peng.zhi.liu.annotation.JwtInspect;
+import peng.zhi.liu.annotation.OperationLog;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.CanteenService;
 import peng.zhi.liu.vo.CanteenVO;
@@ -21,6 +23,7 @@ public class CanteenController {
     private CanteenService canteenService;
     @JwtInspect
     @GetMapping("/canteen/list/{campusId}")
+    @OperationLog(OperationTypeEnum.select)
     public Result getCanteenListByCampusId(@PathVariable Long campusId) {
         log.info("根据校区ID获取食堂列表,校区id: {}", campusId);
         List<CanteenVO> canteenList = canteenService.getCanteenListByCampusIdService(campusId);

@@ -22,6 +22,7 @@ import peng.zhi.liu.mapper.UserMapper;
 import peng.zhi.liu.property.JWTProperty;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.UserService;
+import peng.zhi.liu.utils.AliyunOSSUtils;
 import peng.zhi.liu.utils.BaseContext;
 import peng.zhi.liu.utils.JWTUtils;
 import peng.zhi.liu.vo.UserInfoVO;
@@ -29,6 +30,7 @@ import peng.zhi.liu.vo.UserLoginVO;
 import peng.zhi.liu.vo.UserPageVO;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -45,6 +47,8 @@ public class UserServiceImpl implements UserService {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private CaptchaController captchaController;
+    @Autowired
+    private AliyunOSSUtils aliyunOSSUtils;
     //用户分页查询
     @Override
     public PageResult<UserPageVO> userPageService(UserPageDTO userPageDTO) {
@@ -67,9 +71,40 @@ public class UserServiceImpl implements UserService {
     //删除用户
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteUserService(Long userId) {
-        userMapper.deleteUserMapper(userId);
-        commentMapper.deleteCommentMapper(userId);
+    public void deleteUserService(List<Long> ids) throws Exception {
+        List<String> paths = new ArrayList<>();
+        for (int i = 0; i < ids.size(); i++) {
+            User user = new User();
+            user.setId(ids.get(i));
+            List<User> userList = userMapper.getUser(user);
+            paths.add(userList.get(0).getAvatarUrl());
+        }
+        //批量删除用户头像文件
+        aliyunOSSUtils.deleteAmount(paths);
+        //删除用户
+        userMapper.deleteUserMapper(ids);
+        //修改此用户的评论头像为默认头像
+        for (int i = 0; i < ids.size(); i++) {
+            Long id = ids.get(i);
+            commentMapper.modifyCommentAvatarMapper(id,MessageConstant.DEFAULT_AVATAR);
+        }
+    }
+
+    //用户注销账号
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteUserByUserService(Long id) throws Exception {
+        User user = new User();
+        user.setId(id);
+        List<User> userList = userMapper.getUser(user);
+        //删除OSS服务中的图片
+        aliyunOSSUtils.deleteObject(userList.get(0).getAvatarUrl());
+        //删除用户
+        List<Long> ids = new ArrayList<>();
+        ids.add(id);
+        userMapper.deleteUserMapper(ids);
+        //修改此用户的评论头像为默认头像
+        commentMapper.modifyCommentAvatarMapper(id,MessageConstant.DEFAULT_AVATAR);
     }
 
     //根据id获取用户信息
@@ -100,7 +135,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserLoginVO userLoginService(UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest) {
         //校验图形验证码
-        //检验图片验证码
         if (!captchaController.verifyCaptcha(userLoginDTO.getCaptcha(),httpServletRequest)){
             throw new UserException(MessageConstant.INDENTITY_FALSE);
         }

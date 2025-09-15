@@ -145,17 +145,18 @@ public class AdminServiceImpl implements AdminService {
 
     // 删除管理员
     @Override
-    public void deleteAdminService(Long adminId) {
+    public void deleteAdminService(List<Long> ids) {
         // 1. 检查管理员是否存在
-        Admin adminCheck = new Admin();
-        adminCheck.setId(adminId);
-        List<Admin> adminList = adminMapper.selectAdmin(adminCheck);
-        if (adminList.isEmpty()) {
-            throw new AdminException(AdminConstant.ADMIN_NOT_EXSIT);
+        for (Long id = 0L; id < ids.size(); id++) {
+            Admin adminCheck = new Admin();
+            adminCheck.setId(id);
+            List<Admin> adminList = adminMapper.selectAdmin(adminCheck);
+            if (adminList.isEmpty()) {
+                throw new AdminException(AdminConstant.ADMIN_NOT_EXSIT);
+            }
         }
-
         // 2. 调用mapper删除数据
-        adminMapper.deleteAdmin(adminId);
+        adminMapper.deleteAdmin(ids);
     }
 
     // 更新管理员状态

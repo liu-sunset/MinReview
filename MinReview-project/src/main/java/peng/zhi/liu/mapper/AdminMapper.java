@@ -2,6 +2,7 @@ package peng.zhi.liu.mapper;
 
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.logging.log4j.message.LoggerNameAwareMessage;
 import peng.zhi.liu.dto.AdminPageDTO;
 import peng.zhi.liu.entity.Admin;
 import peng.zhi.liu.vo.AdminPageVO;
@@ -19,5 +20,5 @@ public interface AdminMapper {
     // 更新管理员名称
     public void updateAdminMapper(Admin admin);
     // 删除管理员
-    public void deleteAdmin(Long adminId);
+    public void deleteAdmin(List<Long> ids);
 }

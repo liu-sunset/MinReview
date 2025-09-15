@@ -2,11 +2,14 @@ package peng.zhi.liu.controller.user;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import peng.zhi.liu.annotation.JwtInspect;
+import peng.zhi.liu.annotation.OperationLog;
 import peng.zhi.liu.dto.ModifyUserPasswordDTO;
 import peng.zhi.liu.dto.UserLoginDTO;
+import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.UserService;
 import peng.zhi.liu.vo.UserInfoVO;
@@ -23,6 +26,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
+    @OperationLog(OperationTypeEnum.login)
     public Result userLoginController(@RequestBody UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest){
         log.info("用户登录信息:{}",userLoginDTO);
         UserLoginVO userLoginVO = userService.userLoginService(userLoginDTO,httpServletRequest);
@@ -30,6 +34,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @OperationLog(OperationTypeEnum.register)
     public Result userRegisterController(@RequestBody UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest){
         log.info("用户注册信息:{}",userLoginDTO);
         userService.userRegisterService(userLoginDTO,httpServletRequest);
@@ -38,6 +43,7 @@ public class UserController {
 
     @JwtInspect
     @GetMapping("/personInfo")
+    @OperationLog(OperationTypeEnum.select)
     public Result getUserInfo(@RequestParam Long id) {
         log.info("获取用户信息,用户id: {}", id);
         UserInfoVO userInfoVO = userService.getUserInfoByIdService(id);
@@ -46,6 +52,7 @@ public class UserController {
 
     @JwtInspect
     @PutMapping("/personInfo")
+    @OperationLog(OperationTypeEnum.update)
     public Result updateUserInfo(@RequestBody UpdateUserDTO updateUserDTO) {
         log.info("更新用户信息: {}", updateUserDTO);
         userService.updateUserInfoService(updateUserDTO);
@@ -54,14 +61,16 @@ public class UserController {
 
     @JwtInspect
     @DeleteMapping("/personInfo")
-    public Result deleteUser(@RequestParam Long id) {
+    @OperationLog(OperationTypeEnum.delete)
+    public Result deleteUser(@RequestParam Long id) throws Exception {
         log.info("注销账号,用户id: {}", id);
-        userService.deleteUserService(id);
+        userService.deleteUserByUserService(id);
         return Result.success();
     }
 
     @JwtInspect
     @PostMapping("/password/{userId}")
+    @OperationLog(OperationTypeEnum.update)
     public Result modifyUserPasswordController(@PathVariable Long userId,@RequestBody ModifyUserPasswordDTO modifyUserPasswordDTO){
         log.info("用户修改密码，用户ID：{}，密码信息：{}",userId, modifyUserPasswordDTO);
         userService.updateUserPasswordService(userId, modifyUserPasswordDTO);
@@ -71,6 +80,7 @@ public class UserController {
 
     @JwtInspect
     @PostMapping("/logout")
+    @OperationLog(OperationTypeEnum.logout)
     public Result userLogoutController(HttpServletRequest httpServletRequest){
         log.info("用户登出");
         userService.userLoginoutService(httpServletRequest);
