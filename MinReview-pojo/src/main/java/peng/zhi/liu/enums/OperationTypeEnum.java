@@ -5,11 +5,6 @@ public enum OperationTypeEnum {
     delete,
     update,
     select,
-    login,
-    logout,
     talk,
-    register,
-    getcaptcha,
-    confirmcaptcha,
     upload
 }

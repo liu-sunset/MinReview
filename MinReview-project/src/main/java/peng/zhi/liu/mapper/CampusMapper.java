@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import peng.zhi.liu.dto.CampusPageDTO;
 import peng.zhi.liu.entity.Campus;
 import peng.zhi.liu.service.CampusService;
+import peng.zhi.liu.vo.CampusDetailVO;
 import peng.zhi.liu.vo.CampusPageVO;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface CampusMapper {
     public void deleteCampusMapper(Long id);
     //获取校区列表
     public List<CampusPageVO> getCampusListMapper();
+    //查询回显校区
+    public CampusDetailVO selectCampusDetailMapper(Long id);
 }

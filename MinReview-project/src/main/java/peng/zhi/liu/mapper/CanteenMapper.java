@@ -3,7 +3,10 @@ package peng.zhi.liu.mapper;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import peng.zhi.liu.dto.CanteenPageDTO;
+import peng.zhi.liu.entity.Floor;
 import peng.zhi.liu.entity.canteen;
+import peng.zhi.liu.vo.CampusDetailVO;
+import peng.zhi.liu.vo.CanteenDetailVO;
 import peng.zhi.liu.vo.CanteenPageVO;
 import peng.zhi.liu.vo.CanteenVO;
 import java.util.List;
@@ -20,4 +23,6 @@ public interface CanteenMapper {
     void deleteCanteenMapper(Long id);
     //根据校区ID获取食堂列表
     List<CanteenVO> getCanteenListByCampusIdMapper(Long campusId);
+    //查询回显
+    public CanteenDetailVO getCanteenDetailMapper(Long id);
 }

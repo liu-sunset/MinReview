@@ -61,4 +61,8 @@
         and c.status = 1
         order by c.update_time desc
     </select>
+    <select id="getCanteenDetailMapper" resultType="peng.zhi.liu.vo.CanteenDetailVO">
+        select name,address,description,campus_id from canteen
+        where canteen.id = #{id}
+    </select>
 </mapper>

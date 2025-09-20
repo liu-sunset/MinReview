@@ -80,7 +80,9 @@ public class UserServiceImpl implements UserService {
             paths.add(userList.get(0).getAvatarUrl());
         }
         //批量删除用户头像文件
-        aliyunOSSUtils.deleteAmount(paths);
+        if (!paths.contains(null)){
+            aliyunOSSUtils.deleteAmount(paths);
+        }
         //删除用户
         userMapper.deleteUserMapper(ids);
         //修改此用户的评论头像为默认头像
@@ -124,12 +126,20 @@ public class UserServiceImpl implements UserService {
                 .updateTime(LocalDateTime.now())
                 .gender(updateUserDTO.getGender())
                 .build();
+
         //查找是否存在同名情况
         User userTemp = userMapper.selectUserByName(user.getName());
         if(userTemp!=null){
             throw new UserException(UserConstant.USER_EXIST);
         }
-        userMapper.modifyUserMapper(user);
+
+        //如果修改了名字同时修改此用户发布的评论的名字
+        UserInfoVO userInfoById = userMapper.getUserInfoById(BaseContext.getId());
+        if (!updateUserDTO.getName().equals(userInfoById.getName())){
+            commentMapper.modifyCommentNameMapper(BaseContext.getId(),updateUserDTO.getName());
+        }
+            commentMapper.modifyCommentAvatarMapper(BaseContext.getId(), updateUserDTO.getAvatarUrl());
+            userMapper.modifyUserMapper(user);
     }
 
     @Override

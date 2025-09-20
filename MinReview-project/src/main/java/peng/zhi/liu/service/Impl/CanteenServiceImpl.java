@@ -12,6 +12,7 @@ import peng.zhi.liu.entity.canteen;
 import peng.zhi.liu.mapper.CanteenMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.CanteenService;
+import peng.zhi.liu.vo.CanteenDetailVO;
 import peng.zhi.liu.vo.CanteenPageVO;
 import peng.zhi.liu.vo.CanteenVO;
 
@@ -66,5 +67,10 @@ public class CanteenServiceImpl implements CanteenService {
         canteen.setId(id);
         canteen.setUpdateTime(LocalDateTime.now());
         canteenMapper.modifyCanteenMapper(canteen);
+    }
+
+    @Override
+    public CanteenDetailVO getCanteenDetailService(Long id) {
+        return canteenMapper.getCanteenDetailMapper(id);
     }
 }

@@ -2,14 +2,7 @@ package peng.zhi.liu.controller.admin;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import peng.zhi.liu.annotation.JwtInspect;
 import peng.zhi.liu.annotation.OperationLog;
 import peng.zhi.liu.dto.AddCanteenDTO;
@@ -18,6 +11,7 @@ import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.CanteenService;
+import peng.zhi.liu.vo.CanteenDetailVO;
 import peng.zhi.liu.vo.CanteenPageVO;
 import peng.zhi.liu.vo.CanteenVO;
 
@@ -64,9 +58,18 @@ public class CanteenController {
     @JwtInspect
     @PutMapping("/status/{canteenId}")
     @OperationLog(OperationTypeEnum.update)
-    public Result updateCanteenStatusController(@PathVariable Long canteenId,Integer status){
+    public Result updateCanteenStatusController(@PathVariable Long canteenId,@RequestParam Integer status){
         log.info("更新餐厅状态,餐厅ID:{},餐厅状态:{}",canteenId,status);
         canteenService.updateCanteenStatusService(canteenId,status);
         return Result.success();
+    }
+
+    @JwtInspect
+    @GetMapping("/{canteenId}")
+    @OperationLog(OperationTypeEnum.select)
+    public Result getCanteenDetailController(@PathVariable Long canteenId){
+        log.info("餐厅的查询回显，id:{}",canteenId);
+        CanteenDetailVO canteenDetailVO = canteenService.getCanteenDetailService(canteenId);
+        return Result.success(canteenDetailVO);
     }
 }

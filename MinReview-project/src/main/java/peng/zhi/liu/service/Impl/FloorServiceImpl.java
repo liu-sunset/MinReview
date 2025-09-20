@@ -5,9 +5,11 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import peng.zhi.liu.constant.MessageConstant;
 import peng.zhi.liu.dto.AddFloorDTO;
 import peng.zhi.liu.dto.FloorPageDTO;
 import peng.zhi.liu.entity.Floor;
+import peng.zhi.liu.exception.OrdinaryException;
 import peng.zhi.liu.mapper.FloorMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.FloorService;
@@ -26,6 +28,11 @@ public class FloorServiceImpl implements FloorService {
     //添加楼层
     @Override
     public void addFloorService(AddFloorDTO addFloorDTO) {
+        //判断是否已经存在此楼层
+        Floor floor1 = floorMapper.selectFloorMapper(addFloorDTO.getCanteenId(), addFloorDTO.getFloorNumber());
+        if (floor1!=null){
+            throw new OrdinaryException(MessageConstant.FLOOR_EXIST);
+        }
         Floor floor = new Floor();
         BeanUtils.copyProperties(addFloorDTO, floor);
         floor.setCreateTime(LocalDateTime.now());

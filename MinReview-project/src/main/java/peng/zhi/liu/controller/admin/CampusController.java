@@ -11,6 +11,7 @@ import peng.zhi.liu.enums.OperationTypeEnum;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.CampusService;
+import peng.zhi.liu.vo.CampusDetailVO;
 import peng.zhi.liu.vo.CampusPageVO;
 
 
@@ -63,5 +64,14 @@ public class CampusController {
         log.info("修改ID是{}的校区状态为{}",campusId,status);
         campusService.updateCampusStatusService(campusId,status);
         return Result.success();
+    }
+
+    @JwtInspect
+    @GetMapping("/{id}")
+    @OperationLog(OperationTypeEnum.select)
+    public Result selectCampusDetailByIdController(@PathVariable Long id){
+        log.info("查询回显，id:{}",id);
+        CampusDetailVO campusDetailVO = campusService.selectCampusDetailByIdService(id);
+        return  Result.success(campusDetailVO);
     }
 }

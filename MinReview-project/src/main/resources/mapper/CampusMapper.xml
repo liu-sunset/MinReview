@@ -36,4 +36,7 @@
           where c.status = 1
           order by c.update_time desc
       </select>
+    <select id="selectCampusDetailMapper" resultType="peng.zhi.liu.vo.CampusDetailVO">
+        select * from campus where id = #{id}
+    </select>
 </mapper>

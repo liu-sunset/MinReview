@@ -21,8 +21,11 @@
         where id = #{id}
     </update>
     <delete id="deleteUserMapper">
-        delete from user where id = #{userId}
-    </delete>
+        delete from user where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+     </delete>
 
     <select id="userPageMapper" resultType="peng.zhi.liu.vo.UserPageVO">
         select * from user 

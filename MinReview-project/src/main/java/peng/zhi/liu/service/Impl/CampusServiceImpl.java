@@ -12,6 +12,7 @@ import peng.zhi.liu.entity.Campus;
 import peng.zhi.liu.mapper.CampusMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.CampusService;
+import peng.zhi.liu.vo.CampusDetailVO;
 import peng.zhi.liu.vo.CampusPageVO;
 
 import java.time.LocalDateTime;
@@ -54,6 +55,11 @@ public class CampusServiceImpl implements CampusService {
     @Override
     public List<CampusPageVO> getCampusListService() {
         return campusMapper.getCampusListMapper();
+    }
+
+    @Override
+    public CampusDetailVO selectCampusDetailByIdService(Long id) {
+        return campusMapper.selectCampusDetailMapper(id);
     }
 
     @Override

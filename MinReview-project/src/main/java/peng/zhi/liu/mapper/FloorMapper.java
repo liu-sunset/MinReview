@@ -19,4 +19,6 @@ public interface FloorMapper {
     void deleteFloorMapper(Long floorId);
     //根据食堂ID获取楼层列表
     List<FloorVO> getFloorListByCanteenIdMapper(Long canteenId);
+    //获取根据餐厅ID和楼层号获取楼层
+    public Floor selectFloorMapper(Long canteenId,Integer floorNumber);
 }

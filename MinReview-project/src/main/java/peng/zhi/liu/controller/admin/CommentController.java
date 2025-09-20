@@ -12,6 +12,8 @@ import peng.zhi.liu.result.Result;
 import peng.zhi.liu.service.CommentService;
 import peng.zhi.liu.vo.CommentPageVO;
 
+import java.util.List;
+
 //评论管理Controller
 @Slf4j
 @RestController("adminCommentController")
@@ -28,11 +30,11 @@ public class CommentController {
         return Result.success(pageResult);
     }
     @JwtInspect
-    @DeleteMapping("/{commentId}")
+    @DeleteMapping
     @OperationLog(OperationTypeEnum.delete)
-    public Result deleteCommentController(@PathVariable Long commentId) {
-        log.info("删除评论ID: {}", commentId);
-        commentService.deleteCommentService(commentId);
+    public Result deleteCommentController(@RequestParam List<Long> ids) {
+        log.info("删除评论ID: {}", ids);
+        commentService.deleteCommentService(ids);
         return Result.success();
     }
 }

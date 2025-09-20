@@ -39,4 +39,8 @@
         and f.status = 1
         order by f.floor_number
     </select>
+
+    <select id="selectFloorMapper" resultType="peng.zhi.liu.entity.Floor">
+        select * from floor where canteen_id = #{canteenId} and floor_number = #{floorNumber}
+    </select>
 </mapper>

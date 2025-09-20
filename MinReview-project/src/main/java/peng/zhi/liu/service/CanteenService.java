@@ -1,8 +1,10 @@
 package peng.zhi.liu.service;
 
+import org.apache.logging.log4j.message.LoggerNameAwareMessage;
 import peng.zhi.liu.dto.AddCanteenDTO;
 import peng.zhi.liu.dto.CanteenPageDTO;
 import peng.zhi.liu.result.PageResult;
+import peng.zhi.liu.vo.CanteenDetailVO;
 import peng.zhi.liu.vo.CanteenPageVO;
 import peng.zhi.liu.vo.CanteenVO;
 import java.util.List;
@@ -20,4 +22,6 @@ public interface CanteenService {
     List<CanteenVO> getCanteenListByCampusIdService(Long campusId);
     //更新餐厅状态
     public void updateCanteenStatusService(Long id,Integer status);
+    //查询回显
+    public CanteenDetailVO getCanteenDetailService(Long id);
 }

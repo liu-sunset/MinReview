@@ -34,7 +34,6 @@ public class AdminController {
     }
 
     @PostMapping("/login")
-    @OperationLog(OperationTypeEnum.login)
     public Result adminLoginController(@RequestBody AdminLoginDTO adminLoginDTO,HttpServletRequest httpServletRequest){
         log.info("管理员登录信息:{}",adminLoginDTO);
         AdminLoginVO adminLoginVO = adminService.empLoginService(adminLoginDTO,httpServletRequest);
@@ -88,7 +87,6 @@ public class AdminController {
 
     @JwtInspect
     @PostMapping("/logout")
-    @OperationLog(OperationTypeEnum.logout)
     public Result userLogoutController(HttpServletRequest httpServletRequest){
         log.info("管理员登出");
         adminService.adminLoginoutService(httpServletRequest);

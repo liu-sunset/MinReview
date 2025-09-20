@@ -45,7 +45,7 @@ public class CommentController {
     @OperationLog(OperationTypeEnum.delete)
     public Result deleteCommentController(@PathVariable Long commentId){
         log.info("用户删除评论，评论ID:{}",commentId);
-        commentService.deleteCommentService(commentId);
+        commentService.userDeleteCommentService(commentId);
         return Result.success();
     }
 }

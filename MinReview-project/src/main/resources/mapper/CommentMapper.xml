@@ -10,7 +10,14 @@
         <set>
             <if test="avatarUrl!=null">avatar_url = #{avatarUrl}</if>
         </set>
-        where id = #{id}
+        where user_id = #{id}
+    </update>
+    <update id="modifyCommentNameMapper">
+        update user_comment
+        <set>
+            <if test="userName!=null"> user_name = #{userName}</if>
+        </set>
+        where user_id = #{id}
     </update>
 
     <!-- 评论分页查询 -->
@@ -54,10 +61,16 @@
         </where>
         order by uc.update_time desc
     </select>
+    <select id="selectByIdMapper" resultType="peng.zhi.liu.entity.UserComment">
+        select * from user_comment where id = #{id}
+    </select>
 
     <!-- 删除评论 -->
     <delete id="deleteCommentMapper" parameterType="java.lang.Long">
-        delete from user_comment where id = #{id}
+        delete from user_comment where id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
     </delete>
 
 </mapper>

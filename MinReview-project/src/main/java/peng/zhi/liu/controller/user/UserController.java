@@ -26,7 +26,6 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/login")
-    @OperationLog(OperationTypeEnum.login)
     public Result userLoginController(@RequestBody UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest){
         log.info("用户登录信息:{}",userLoginDTO);
         UserLoginVO userLoginVO = userService.userLoginService(userLoginDTO,httpServletRequest);
@@ -34,7 +33,6 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    @OperationLog(OperationTypeEnum.register)
     public Result userRegisterController(@RequestBody UserLoginDTO userLoginDTO,HttpServletRequest httpServletRequest){
         log.info("用户注册信息:{}",userLoginDTO);
         userService.userRegisterService(userLoginDTO,httpServletRequest);
@@ -80,7 +78,6 @@ public class UserController {
 
     @JwtInspect
     @PostMapping("/logout")
-    @OperationLog(OperationTypeEnum.logout)
     public Result userLogoutController(HttpServletRequest httpServletRequest){
         log.info("用户登出");
         userService.userLoginoutService(httpServletRequest);

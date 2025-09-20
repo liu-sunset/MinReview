@@ -3,6 +3,7 @@ package peng.zhi.liu.service;
 import peng.zhi.liu.dto.AddCampusDTO;
 import peng.zhi.liu.dto.CampusPageDTO;
 import peng.zhi.liu.result.PageResult;
+import peng.zhi.liu.vo.CampusDetailVO;
 import peng.zhi.liu.vo.CampusPageVO;
 import java.util.List;
 
@@ -19,4 +20,6 @@ public interface CampusService {
     public void updateCampusStatusService(Long id,Integer status);
     //获取校区列表
     public List<CampusPageVO> getCampusListService();
+    //校区查询回显
+    public CampusDetailVO selectCampusDetailByIdService(Long id);
 }

@@ -147,9 +147,9 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void deleteAdminService(List<Long> ids) {
         // 1. 检查管理员是否存在
-        for (Long id = 0L; id < ids.size(); id++) {
+        for (Integer i = 0; i < ids.size(); i++) {
             Admin adminCheck = new Admin();
-            adminCheck.setId(id);
+            adminCheck.setId(ids.get(i));
             List<Admin> adminList = adminMapper.selectAdmin(adminCheck);
             if (adminList.isEmpty()) {
                 throw new AdminException(AdminConstant.ADMIN_NOT_EXSIT);
