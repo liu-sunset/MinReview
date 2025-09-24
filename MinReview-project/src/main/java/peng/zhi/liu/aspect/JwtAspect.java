@@ -30,10 +30,12 @@ public class JwtAspect {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         String authorization = request.getHeader("Authorization");
-        String token = authorization.substring(7);
-        Boolean flag = stringRedisTemplate.hasKey(token);
-        if(flag){
-            throw new OrdinaryException(MessageConstant.TOKEN_INVALIDED);
+        if (authorization!=null){
+            String token = authorization.substring(7);
+            Boolean flag = stringRedisTemplate.hasKey(token);
+            if(flag){
+                throw new OrdinaryException(MessageConstant.TOKEN_INVALIDED);
+            }
         }
     }
 }

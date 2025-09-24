@@ -40,6 +40,7 @@ min:
   review:
     secretKey: pengzhiliu
     ttlTime: 86400000
+#    ttlTime: 10000
 
     aliyunoss:
       bucket-name: liu-sunset-sky-take-out
