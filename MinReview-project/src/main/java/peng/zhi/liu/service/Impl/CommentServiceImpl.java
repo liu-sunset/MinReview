@@ -91,7 +91,11 @@ public class CommentServiceImpl implements CommentService {
         Dish dish = new Dish();
         DishDetailVO detailVO = dishMapper.getDishDetailMapper(addCommentDTO.getDishId());
         dish.setId(addCommentDTO.getDishId());
-        dish.setCommentCount(detailVO.getCommentCount()+1);
+        if(detailVO.getCommentCount()==null){
+            dish.setCommentCount(1);
+        }else {
+            dish.setCommentCount(detailVO.getCommentCount()+1);
+        }
         dish.setUpdateTime(LocalDateTime.now());
         dishMapper.updateDishMapper(dish);
     }

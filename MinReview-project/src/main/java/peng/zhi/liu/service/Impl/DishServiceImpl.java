@@ -12,6 +12,7 @@ import peng.zhi.liu.entity.Dish;
 import peng.zhi.liu.mapper.DishMapper;
 import peng.zhi.liu.result.PageResult;
 import peng.zhi.liu.service.DishService;
+import peng.zhi.liu.utils.AliyunOSSUtils;
 import peng.zhi.liu.vo.DishDetailVO;
 import peng.zhi.liu.vo.DishPageVO;
 import java.time.LocalDateTime;
@@ -21,7 +22,8 @@ import java.time.LocalDateTime;
 public class DishServiceImpl implements DishService {
     @Autowired
     private DishMapper dishMapper;
-
+    @Autowired
+    private AliyunOSSUtils aliyunOSSUtils;
     //菜品分页查询
     @Override
     public PageResult<DishPageVO> dishPageService(DishPageDTO dishPageDTO) {
@@ -53,7 +55,9 @@ public class DishServiceImpl implements DishService {
     }
     //删除菜品
     @Override
-    public void deleteDishService(Long dishId) {
+    public void deleteDishService(Long dishId) throws Exception {
+        Dish dish = dishMapper.getDishByIdMapper(dishId);
+        aliyunOSSUtils.deleteObject(dish.getImageUrl());
         dishMapper.deleteDishMapper(dishId);
     }
 

@@ -15,7 +15,7 @@ public interface DishService {
     //更新菜品
     public void updateDishService(UpdateDishDTO updateDishDTO);
     //删除菜品
-    public void deleteDishService(Long dishId);
+    public void deleteDishService(Long dishId) throws Exception;
     //更新菜品状态
     public void updateDishStatusService(Long id,Integer status);
     //获取菜品详情

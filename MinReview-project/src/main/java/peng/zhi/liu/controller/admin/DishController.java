@@ -54,7 +54,7 @@ public class DishController {
     @JwtInspect
     @DeleteMapping("/{dishId}")
     @OperationLog(OperationTypeEnum.delete)
-    public Result deleteDishController(@PathVariable Long dishId) {
+    public Result deleteDishController(@PathVariable Long dishId) throws Exception {
         log.info("删除菜品参数: dishId={}", dishId);
         //调用service层方法
         dishService.deleteDishService(dishId);
